@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("c6de99d0-dd5a-4705-8f11-92c894111683")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("Pantry-API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5163b431512bbb11e83d126716778a062865f817")]
 [assembly: System.Reflection.AssemblyProductAttribute("Pantry-API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Pantry-API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

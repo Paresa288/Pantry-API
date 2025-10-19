@@ -1,0 +1,92 @@
+# .gitignore para la solución Pantry-API
+# Evita subir información sensible y artefactos generados
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build artefacts
+**/bin/
+**/obj/
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+logs/
+
+# NuGet
+*.nupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Node
+node_modules/
+
+# OS files
+Thumbs.db
+ehthumbs.db
+.DS_Store
+
+# Secret/local configuration files (omitir toda la información sensible)
+# Archivos de configuración que pueden contener cadenas de conexión, claves, etc.
+appsettings.json
+appsettings.*.json
+local.settings.json
+secrets.json
+secrets.*
+.env
+.env.*
+.env.local
+
+# User secrets (dotnet user-secrets)
+secrets.json
+
+# Certificates and keys
+*.pem
+*.pfx
+*.key
+*.cer
+
+# Database files
+*.mdf
+*.ldf
+*.sqlite
+*.db
+
+# Publish outputs
+publish/
+
+# Docker
+docker-compose.override.yml
+Dockerfile.local
+
+# Temporary files
+*.tmp
+*.temp
+
+# Ignore generated EF Core migrations snapshot cache (if you prefer to keep snapshots, remove this)
+**/Migrations/**/ModelSnapshot.cs
+
+# Ignore files that may contain credentials
+**/*.publishsettings
+**/*credentials*
+**/*credential*
+**/*secret*
+**/*secrets*
+
+# Common project files to ignore
+*.userprefs
+*.resharper
+_ReSharper*/
+
+# End of .gitignore

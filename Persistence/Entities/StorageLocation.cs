@@ -5,15 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Persistence.Entities.Roles
+namespace Persistence.Entities.StorageLocations
 {
-    public class Role
+    public class StorageLocation
     {
         public int Id { get; set; }
 
-        [MaxLength(50)]
-        public string Name { get; set; }
-        public string Description { get; set; }
-
+        [MaxLength(100), Required]
+        public string Name { get; set; } = null!;
+        public string? Description { get; set; }
     }
 }

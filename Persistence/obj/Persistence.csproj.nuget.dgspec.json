@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Pablo Reyes Santos\\source\\repos\\Pantry-API\\Persistence\\Persistence.csproj": {}
+    "C:\\Users\\Pablo Reyes Santos\\Documents\\Code\\Pantry-API\\Persistence\\Persistence.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Pablo Reyes Santos\\source\\repos\\Pantry-API\\Persistence\\Persistence.csproj": {
+    "C:\\Users\\Pablo Reyes Santos\\Documents\\Code\\Pantry-API\\Persistence\\Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Pablo Reyes Santos\\source\\repos\\Pantry-API\\Persistence\\Persistence.csproj",
+        "projectUniqueName": "C:\\Users\\Pablo Reyes Santos\\Documents\\Code\\Pantry-API\\Persistence\\Persistence.csproj",
         "projectName": "Persistence",
-        "projectPath": "C:\\Users\\Pablo Reyes Santos\\source\\repos\\Pantry-API\\Persistence\\Persistence.csproj",
+        "projectPath": "C:\\Users\\Pablo Reyes Santos\\Documents\\Code\\Pantry-API\\Persistence\\Persistence.csproj",
         "packagesPath": "C:\\Users\\Pablo Reyes Santos\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Pablo Reyes Santos\\source\\repos\\Pantry-API\\Persistence\\obj\\",
+        "outputPath": "C:\\Users\\Pablo Reyes Santos\\Documents\\Code\\Pantry-API\\Persistence\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -50,29 +50,41 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
-            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+            "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
-              "version": "[9.0.9, )"
+              "version": "[9.0.10, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[9.0.9, )"
+              "version": "[9.0.10, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[9.0.9, )"
+              "version": "[9.0.10, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[9.0.9, )"
+              "version": "[9.0.10, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[9.0.9, )"
+              "version": "[9.0.10, )"
+            },
+            "Swashbuckle.AspNetCore.Swagger": {
+              "target": "Package",
+              "version": "[9.0.6, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerGen": {
+              "target": "Package",
+              "version": "[9.0.6, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerUI": {
+              "target": "Package",
+              "version": "[9.0.6, )"
             }
           },
           "imports": [
