@@ -1,0 +1,58 @@
+# Build outputs
+**/bin/
+**/obj/
+out/
+publish/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# NuGet
+*.nupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# logs, OS
+*.log
+logs/
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Certificates and keys
+*.pem
+*.pfx
+*.key
+*.cer
+
+# Database files
+*.mdf
+*.ldf
+*.sqlite
+*.db
+
+# Docker
+docker-compose.override.yml
+Dockerfile.local
+
+# Ignore generated EF Core migrations snapshot cache (optional)
+# Si prefieres mantener los snapshots de migración, elimina o comenta la siguiente línea.
+# **/Migrations/*ModelSnapshot*.cs
+
+# Other
+*.vsix
+*.publishsettings
