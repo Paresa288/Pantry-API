@@ -6,9 +6,18 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pantry-API", "Pantry-API\Pantry-API.csproj", "{0A8F1C2D-B176-4EB7-B363-C64808890170}"
 	ProjectSection(ProjectDependencies) = postProject
 		{727CFD8C-23B7-C991-64E7-E71059A345FA} = {727CFD8C-23B7-C991-64E7-E71059A345FA}
+		{C5827C10-32D2-D72F-4639-49B48E591E74} = {C5827C10-32D2-D72F-4639-49B48E591E74}
+		{E15E491A-E872-91D8-DF7A-CA59C792F064} = {E15E491A-E872-91D8-DF7A-CA59C792F064}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{727CFD8C-23B7-C991-64E7-E71059A345FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{C5827C10-32D2-D72F-4639-49B48E591E74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{E15E491A-E872-91D8-DF7A-CA59C792F064}"
+	ProjectSection(ProjectDependencies) = postProject
+		{727CFD8C-23B7-C991-64E7-E71059A345FA} = {727CFD8C-23B7-C991-64E7-E71059A345FA}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +33,14 @@ Global
 		{727CFD8C-23B7-C991-64E7-E71059A345FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{727CFD8C-23B7-C991-64E7-E71059A345FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{727CFD8C-23B7-C991-64E7-E71059A345FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5827C10-32D2-D72F-4639-49B48E591E74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5827C10-32D2-D72F-4639-49B48E591E74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5827C10-32D2-D72F-4639-49B48E591E74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5827C10-32D2-D72F-4639-49B48E591E74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E15E491A-E872-91D8-DF7A-CA59C792F064}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E15E491A-E872-91D8-DF7A-CA59C792F064}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E15E491A-E872-91D8-DF7A-CA59C792F064}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E15E491A-E872-91D8-DF7A-CA59C792F064}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Pantry_API.Models;
-using Persistence;
-
+using Business.UserService;
+using Common.Models.Users;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Pantry_API.Controllers
@@ -11,46 +9,33 @@ namespace Pantry_API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly PantryDbContext dbContext;
+        private readonly IUserService _userService;
 
-        public UsersController(PantryDbContext dbContext)
+        public UsersController(IUserService userService)
         {
-            this.dbContext = dbContext;
+            ArgumentNullException.ThrowIfNull(userService);
+            _userService = userService;
         }
 
         [HttpGet]
-        public IActionResult GetAllUsers()
+        public async Task<IActionResult> GetAllUsersAsync()
         {
-            return Ok(dbContext.Users.Include(u => u.Role.Name).ToList());
+            var results = await _userService.GetAllUsersAsync();
+            return Ok(results);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetUserById(int id)
+        public async Task<IActionResult> GetUserByIdAsync(int id)
         {
-            var user = dbContext.Users.Include(u => u.Role.Name).Where(u => u.ID == id);
-            
-            if (user is null)
-            {
-                return NotFound();
-            }
-            return Ok(user);
+            var result = await _userService.GetUserByIdAsync(id);
+            return Ok(result);
         }
 
         [HttpPost]
-        public IActionResult CreateUser(UserDto userDto)
-        {   
-            var user = new Persistence.Entities.User
-            {
-                Name = userDto.Name,
-                Email = userDto.Email,
-                PasswordHash = userDto.Password,
-                RoleId = userDto.RoleId
-            };
-
-            dbContext.Users.Add(user);
-            dbContext.SaveChanges();
-            return Ok(user);
+        public async Task<IActionResult> CreateUserAsync([FromBody] UserDto userDto)
+        {
+            var result = await _userService.CreateUserAsync(userDto);
+            return StatusCode(result.statusCode, result);
         }
-       
     }
 }

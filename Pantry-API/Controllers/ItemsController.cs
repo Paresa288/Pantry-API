@@ -21,7 +21,7 @@ namespace Pantry_API.Controllers
         [HttpGet]
         public IActionResult GetAllItems()
         {
-            return Ok(dbContext.Items.Include(i => i.Category.Name).ToList());
+            return Ok(dbContext.Items.ToList());
         }
         
     }

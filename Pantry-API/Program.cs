@@ -1,9 +1,11 @@
+using Business.UserService;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
+using Persistence.Repository.UsersRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var conString = builder.Configuration.GetConnectionString("PantryDbDesktop") ?? 
+var conString = builder.Configuration.GetConnectionString("PantryDbLaptop") ?? 
     throw new InvalidOperationException("Connection string 'PantryDb' not found.");
 
 // Add services to the container.
@@ -13,6 +15,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PantryDbContext>(options=> 
     options.UseSqlServer(conString));
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 

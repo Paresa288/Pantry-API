@@ -1,7 +1,9 @@
-﻿using Persistence.Entities;
+﻿using Common.Models.Categories;
+using Common.Models.StorageLocations;
+using Common.Models.Users;
 
-namespace Pantry_API.Models
-{
+namespace Common.Models.Items
+{ 
     public class ItemDto
     {
         public string Name { get; set; }
@@ -12,8 +14,8 @@ namespace Pantry_API.Models
         public string Unit { get; set; } = null!;
         public DateTime? ExpDate { get; set; }
         public string? Notes { get; set; }
-        public Category Category { get; set; } = null!;
-        public StorageLocation Location { get; set; } = null!;
-        public User User { get; set; } = null!;
+        public CategoryDto Category { get; set; } = null!;
+        public StorageLocationDto Location { get; set; } = null!;
+        public UserDto User { get; set; } = null!;
     }
 }
