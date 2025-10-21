@@ -7,6 +7,6 @@ namespace Business.UserService
     {
         Task<ServiceResponse<List<UserDto>>> GetAllUsersAsync();
         Task<ServiceResponse<UserDto>> GetUserByIdAsync(int id);
-        Task<ServiceResponse<CreateUserDto>> CreateUserAsync(CreateUserDto createUserDto);
+        Task<ServiceResponse<int>> CreateUserAsync(CreateUserDto createUserDto);
     }
 }

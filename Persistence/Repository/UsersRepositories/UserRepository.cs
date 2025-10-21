@@ -19,12 +19,7 @@ namespace Persistence.Repository.UsersRepositories
 
         public async Task<User> GetByIdAsync(int id)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.ID == id);
-            if (user == null)
-            {
-                throw new Exception("User not found");
-            }
-            return user;
+             return await _context.Users.FirstOrDefaultAsync(u => u.ID == id);
         }
 
         public async Task<int> CreateAsync(User user)

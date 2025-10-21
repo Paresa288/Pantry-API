@@ -21,21 +21,21 @@ namespace Pantry_API.Controllers
         public async Task<IActionResult> GetAllUsersAsync()
         {
             var results = await _userService.GetAllUsersAsync();
-            return Ok(results);
+            return StatusCode(results.StatusCode, results);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserByIdAsync(int id)
         {
             var result = await _userService.GetUserByIdAsync(id);
-            return Ok(result);
+            return StatusCode(result.StatusCode, result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUserAsync([FromBody] UserDto userDto)
+        public async Task<IActionResult> CreateUserAsync([FromBody] CreateUserDto createUserDto)
         {
-            var result = await _userService.CreateUserAsync(userDto);
-            return StatusCode(result.statusCode, result);
+            var result = await _userService.CreateUserAsync(createUserDto);
+            return StatusCode(result.StatusCode, result);
         }
     }
 }

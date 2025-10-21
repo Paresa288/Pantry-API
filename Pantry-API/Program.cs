@@ -14,9 +14,9 @@ builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PantryDbContext>(options=> 
-    options.UseSqlServer(conString));
-builder.Services.AddScoped<IUserService, UserService>();
+    options.UseSqlServer(conString, sql => sql.MigrationsAssembly(typeof(PantryDbContext).Assembly.FullName)));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 

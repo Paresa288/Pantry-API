@@ -23,6 +23,7 @@ namespace Business.UserService
                 Name = u.Name,
                 RoleId = u.RoleId,
             }).ToList();
+            
             return new ServiceResponse<List<UserDto>>
             {
                 Data = usersDto,
@@ -36,23 +37,14 @@ namespace Business.UserService
             var user = await _userRepository.GetByIdAsync(id);
             if (user == null)
             {
-                return ServiceResponse<int>.Fail("Invalid user ID", 400);
+                return ServiceResponse<UserDto>.Fail("User not found", 404);
             }
+            
+            return ServiceResponse<UserDto>._Success(new UserDto { Name = user.Name, RoleId = user.RoleId }, 200);
 
-            var userDto = new UserDto
-            {
-                Name = user.Name,
-                RoleId = user.RoleId,
-            };
-            return new ServiceResponse<UserDto>
-            {
-                Data = userDto,
-                Success = true,
-                Message = "User retrieved successfully."
-            };
         }
         
-        public async Task<ServiceResponse<CreateUserDto>> CreateUserAsync(CreateUserDto createUserDto)
+        public async Task<ServiceResponse<int>> CreateUserAsync(CreateUserDto createUserDto)
         {
             var user = new User
             {
@@ -62,12 +54,7 @@ namespace Business.UserService
             };
 
             int userId = await _userRepository.CreateAsync(user);
-            return new ServiceResponse<CreateUserDto>
-            {
-                Data = createUserDto,
-                Success = true,
-                Message = $"User created successfully with ID: {userId}"
-            };
+            return ServiceResponse<int>._Success(userId, 201);
         }
     }
 }
