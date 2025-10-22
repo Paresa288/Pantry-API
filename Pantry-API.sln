@@ -11,13 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pantry-API", "Pantry-API\Pa
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{727CFD8C-23B7-C991-64E7-E71059A345FA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E15E491A-E872-91D8-DF7A-CA59C792F064} = {E15E491A-E872-91D8-DF7A-CA59C792F064}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{C5827C10-32D2-D72F-4639-49B48E591E74}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{E15E491A-E872-91D8-DF7A-CA59C792F064}"
-	ProjectSection(ProjectDependencies) = postProject
-		{727CFD8C-23B7-C991-64E7-E71059A345FA} = {727CFD8C-23B7-C991-64E7-E71059A345FA}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

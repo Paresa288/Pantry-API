@@ -7,7 +7,7 @@ namespace Common.Models.Items
     public class ItemDto
     {
         public string Name { get; set; }
-        public int CategrotyId { get; set; }
+        public int CategoryId { get; set; }
         public int LocationId { get; set; }
         public int UserId { get; set; }
         public double Stock { get; set; }

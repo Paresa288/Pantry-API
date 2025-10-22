@@ -1,7 +1,9 @@
-using Business.UserService;
+using Business.ItemServices;
+using Business.UserServices;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
-using Persistence.Repository.UsersRepositories;
+using Persistence.Repository.ItemsRepository;
+using Persistence.Repository.UsersRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,9 +18,16 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PantryDbContext>(options=> 
     options.UseSqlServer(conString, sql => sql.MigrationsAssembly(typeof(PantryDbContext).Assembly.FullName)));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserServices, UserServices >();
+builder.Services.AddScoped<IItemsRepository, ItemsRepository>();
+builder.Services.AddScoped<IItemServices, ItemServices>();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{     var dbContext = scope.ServiceProvider.GetRequiredService<PantryDbContext>();
+    dbContext.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

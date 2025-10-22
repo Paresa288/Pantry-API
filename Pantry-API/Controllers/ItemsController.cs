@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Persistence;
+﻿using Business.ItemServices;
+using Common.Models.Items;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,19 +10,26 @@ namespace Pantry_API.Controllers
     [ApiController]
     public class ItemsController : ControllerBase
     {
-        private readonly PantryDbContext dbContext;
+        private readonly IItemServices _itemServices;
 
-        public ItemsController(PantryDbContext dbContext)
+        public ItemsController(IItemServices itemServices)
         {
-            this.dbContext = dbContext;
+            _itemServices = itemServices;
         }
 
         // GET: api/<ItemsController>
         [HttpGet]
-        public IActionResult GetAllItems()
+        public async Task<IActionResult> GetAllItems()
         {
-            return Ok(dbContext.Items.ToList());
+            var items = await _itemServices.GetAllItemsAsync();
+            return StatusCode(items.StatusCode, items);
         }
-        
+
+        [HttpPost]
+        public async Task<IActionResult> CreateItem([FromBody] CreateItemDto createItemDto)
+        {
+            var result = await _itemServices.CreateItemAsync(createItemDto);
+            return StatusCode(result.StatusCode, result);
+        }
     }
 }

@@ -1,15 +1,15 @@
 ﻿using Common.Models.Users;
-using Persistence.Repository.UsersRepositories;
+using Persistence.Repository.UsersRepository;
 using Business.ServiceResponder;
 using Persistence.Entities;
 
-namespace Business.UserService
+namespace Business.UserServices
 {
-    public class UserService : IUserService
+    public class UserServices : IUserServices
     {
         private readonly IUserRepository _userRepository;
 
-        public UserService(IUserRepository userRepository)
+        public UserServices(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
@@ -18,18 +18,8 @@ namespace Business.UserService
         public async Task<ServiceResponse<List<UserDto>>> GetAllUsersAsync()
         {
             var users = await _userRepository.GetAllAsync();
-            var usersDto = users.Select(u => new UserDto
-            {
-                Name = u.Name,
-                RoleId = u.RoleId,
-            }).ToList();
             
-            return new ServiceResponse<List<UserDto>>
-            {
-                Data = usersDto,
-                Success = true,
-                Message = "Users retrieved successfully."
-            };
+            return ServiceResponse<List<UserDto>>._Success(users, 200);
         }
 
         public async Task<ServiceResponse<UserDto>> GetUserByIdAsync(int id)
@@ -40,7 +30,7 @@ namespace Business.UserService
                 return ServiceResponse<UserDto>.Fail("User not found", 404);
             }
             
-            return ServiceResponse<UserDto>._Success(new UserDto { Name = user.Name, RoleId = user.RoleId }, 200);
+            return ServiceResponse<UserDto>._Success(user, 200);
 
         }
         
@@ -53,8 +43,19 @@ namespace Business.UserService
                 Password = createUserDto.Password,
             };
 
-            int userId = await _userRepository.CreateAsync(user);
+            int userId = await _userRepository.CreateAsync(createUserDto);
             return ServiceResponse<int>._Success(userId, 201);
+        }
+        
+        public async Task<ServiceResponse<int>> DeleteUserAsync(int id)
+        {
+            var user = await _userRepository.GetByIdAsync(id);
+            if (user == null)
+            {
+                return ServiceResponse<int>.Fail("User not found", 404);
+            }
+            await _userRepository.DeleteAsync(id);
+            return ServiceResponse<int>._Success(id, 200);
         }
     }
 }

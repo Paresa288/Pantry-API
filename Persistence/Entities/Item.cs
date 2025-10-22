@@ -3,31 +3,27 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Persistence.Entities
 {
+    /// <summary>
+    /// Represents an inventory item with stock, unit, expiration date, and related categories and locations.
+    /// </summary>
     public class Item
     {
+        /// <summary>
+        /// Gets or sets the unique identifier for the item.
+        /// </summary>
         public int Id { get; set; }
         
+        /// <summary>
+        /// Gets or sets the name of the item.
+        /// </summary>
         [MaxLength(100), Required]
         public string Name { get; set; } = null!;
-        
-        [ForeignKey("Category")]
-        public int CategoryId { get; set; }
-        
-        [ForeignKey("Location")]
-        public int LocationId { get; set; }
-        
-        [ForeignKey("User")]
-        public int UserId { get; set; }
-        public double Stock { get; set; }
 
         [MaxLength(20)]
         public string Unit { get; set; } = null!;
         public DateTime? ExpDate { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public string? Notes { get; set; }
-
-        public Category Category { get; set; } = null!;
-        public StorageLocation Location { get; set; } = null!;
-        public User User { get; set; } = null!;
+        public int CategoryId { get; set; }
+        public Category Categories { get; }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Persistence.Entities;
+using Persistence.Seeds;
 
 namespace Persistence
 {
@@ -9,11 +11,10 @@ namespace Persistence
         {
         }
 
-        public DbSet<Entities.Item> Items { get; set; } = null!;
-        public DbSet<Entities.Category> Categories { get; set; } = null!;
-        public DbSet<Entities.StorageLocation> StorageLocations { get; set; } = null!;
-        public DbSet<Entities.User> Users { get; set; } = null!;
-        public DbSet<Entities.Role> Roles { get; set; } = null!;
-
+        public DbSet<Item> Items { get; set; } = null!;
+        public DbSet<Category> Categories { get; set; } = null!;
+        public DbSet<StorageLocation> StorageLocations { get; set; } = null!;
+        public DbSet<User> Users { get; set; } = null!;
+        public DbSet<Role> Roles { get; set; } = null!;
     }
 }

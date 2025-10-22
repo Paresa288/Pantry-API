@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
@@ -11,9 +12,11 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(PantryDbContext))]
-    partial class PantryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251022072513_AddedItemsToStoragesAndCategoriesRelations")]
+    partial class AddedItemsToStoragesAndCategoriesRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,36 @@ namespace Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CategoryItem", b =>
+                {
+                    b.Property<int>("CategoriesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ItemsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CategoriesId", "ItemsId");
+
+                    b.HasIndex("ItemsId");
+
+                    b.ToTable("CategoryItem");
+                });
+
+            modelBuilder.Entity("ItemStorageLocation", b =>
+                {
+                    b.Property<int>("ItemsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LocationsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ItemsId", "LocationsId");
+
+                    b.HasIndex("LocationsId");
+
+                    b.ToTable("ItemStorageLocation");
+                });
 
             modelBuilder.Entity("Persistence.Entities.Category", b =>
                 {
@@ -51,9 +84,6 @@ namespace Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -65,14 +95,18 @@ namespace Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Stock")
+                        .HasColumnType("float");
+
                     b.Property<string>("Unit")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.ToTable("Items");
                 });
@@ -121,11 +155,11 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Persistence.Entities.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -147,18 +181,39 @@ namespace Persistence.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Persistence.Entities.Item", b =>
+            modelBuilder.Entity("CategoryItem", b =>
                 {
                     b.HasOne("Persistence.Entities.Category", null)
-                        .WithMany("Items")
-                        .HasForeignKey("CategoryId")
+                        .WithMany()
+                        .HasForeignKey("CategoriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Persistence.Entities.Item", null)
+                        .WithMany()
+                        .HasForeignKey("ItemsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ItemStorageLocation", b =>
+                {
+                    b.HasOne("Persistence.Entities.Item", null)
+                        .WithMany()
+                        .HasForeignKey("ItemsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Persistence.Entities.StorageLocation", null)
+                        .WithMany()
+                        .HasForeignKey("LocationsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -166,22 +221,12 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Persistence.Entities.User", b =>
                 {
                     b.HasOne("Persistence.Entities.Role", "Role")
-                        .WithMany("Users")
+                        .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("Persistence.Entities.Category", b =>
-                {
-                    b.Navigation("Items");
-                });
-
-            modelBuilder.Entity("Persistence.Entities.Role", b =>
-                {
-                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }
