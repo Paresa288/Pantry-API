@@ -1,9 +1,9 @@
 ﻿using Business.ServiceResponder;
 using Common.Models.Users;
 
-namespace Business.UserServices
+namespace Business.UsersService
 {
-    public interface IUserServices
+    public interface IUsersService
     {
         Task<ServiceResponse<List<UserDto>>> GetAllUsersAsync();
         Task<ServiceResponse<UserDto>> GetUserByIdAsync(int id);

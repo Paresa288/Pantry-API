@@ -1,4 +1,4 @@
-﻿using Business.ItemServices;
+﻿using Business.ItemsService;
 using Common.Models.Items;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,25 +10,25 @@ namespace Pantry_API.Controllers
     [ApiController]
     public class ItemsController : ControllerBase
     {
-        private readonly IItemServices _itemServices;
+        private readonly IItemsService _itemsService;
 
-        public ItemsController(IItemServices itemServices)
+        public ItemsController(IItemsService itemsService)
         {
-            _itemServices = itemServices;
+            _itemsService = itemsService;
         }
 
         // GET: api/<ItemsController>
         [HttpGet]
         public async Task<IActionResult> GetAllItems()
         {
-            var items = await _itemServices.GetAllItemsAsync();
+            var items = await _itemsService.GetAllItemsAsync();
             return StatusCode(items.StatusCode, items);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateItem([FromBody] CreateItemDto createItemDto)
         {
-            var result = await _itemServices.CreateItemAsync(createItemDto);
+            var result = await _itemsService.CreateItemAsync(createItemDto);
             return StatusCode(result.StatusCode, result);
         }
     }

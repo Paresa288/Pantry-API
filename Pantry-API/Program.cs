@@ -1,8 +1,12 @@
-using Business.ItemServices;
-using Business.UserServices;
+using Business.CategoriesService;
+using Business.ItemsService;
+using Business.StorageLocationsService;
+using Business.UsersService;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
+using Persistence.Repository.CategoriesRepository;
 using Persistence.Repository.ItemsRepository;
+using Persistence.Repository.StorageLocationsRepository;
 using Persistence.Repository.UsersRepository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,9 +22,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PantryDbContext>(options=> 
     options.UseSqlServer(conString, sql => sql.MigrationsAssembly(typeof(PantryDbContext).Assembly.FullName)));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserServices, UserServices >();
+builder.Services.AddScoped<IUsersService, UsersService >();
+builder.Services.AddScoped<IStorageLocationsRepository, StorageLocationsRepository>();
+builder.Services.AddScoped<IStorageLocationsService, StorageLocationsService>();
 builder.Services.AddScoped<IItemsRepository, ItemsRepository>();
-builder.Services.AddScoped<IItemServices, ItemServices>();
+builder.Services.AddScoped<IItemsService, ItemsService>();
+builder.Services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+builder.Services.AddScoped<ICategoriesService, CategoriesService>();
+
 
 var app = builder.Build();
 

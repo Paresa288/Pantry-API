@@ -3,13 +3,13 @@ using Persistence.Repository.UsersRepository;
 using Business.ServiceResponder;
 using Persistence.Entities;
 
-namespace Business.UserServices
+namespace Business.UsersService
 {
-    public class UserServices : IUserServices
+    public class UsersService : IUsersService
     {
         private readonly IUserRepository _userRepository;
 
-        public UserServices(IUserRepository userRepository)
+        public UsersService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }

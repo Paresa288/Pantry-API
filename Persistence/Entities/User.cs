@@ -17,7 +17,7 @@ namespace Persistence.Entities
         /// Gets or sets the name of the user.
         /// </summary>
         [MaxLength(50)]
-        [Required(ErrorMessage = "Name is required")]
+        [Required(ErrorMessage = "A Name is required")]
         public string Name { get; set; } = null!;
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Persistence.Entities
         /// <summary>
         /// Gets or sets the date and time when the user was created.
         /// </summary>
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; }
 
         /// <summary>
         /// Gets or sets the role identifier for the user.

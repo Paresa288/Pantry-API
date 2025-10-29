@@ -33,14 +33,22 @@ namespace Persistence.Repository.ItemsRepository
 
         public async Task<int> CreateItemAsync(CreateItemDto createItemDto)
         {
-            var item = _context.Items.Add(new Item 
+            var item = new Item 
             {
                 Name = createItemDto.Name,
                 Unit = createItemDto.Unit,
                 CategoryId = createItemDto.CategoryId
+            };
+            await _context.Items.AddAsync(item);
+
+            await _context.Items_Users_StorageLocations.AddAsync(new Items_Users_StorageLocations
+            {
+                Item = item,
+                UserStorageLocationId = createItemDto.UserStorageLocationId
             });
+
             await _context.SaveChangesAsync();
-            return item.Entity.Id;
+            return item.Id;
         }
     }
 }

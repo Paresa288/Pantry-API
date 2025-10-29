@@ -6,7 +6,7 @@ namespace Persistence.Entities
     {
         public int Id { get; set; }
 
-        [MaxLength(100), Required]
+        [MaxLength(100), Required(ErrorMessage = "A Name is required")]
         public string Name { get; set; } = null!;
         public string? Description { get; set; }
     }

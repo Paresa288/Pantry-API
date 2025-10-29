@@ -22,7 +22,7 @@ namespace Persistence.Entities
         [MaxLength(20)]
         public string Unit { get; set; } = null!;
         public DateTime? ExpDate { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; }
         public int CategoryId { get; set; }
         public Category Categories { get; }
     }

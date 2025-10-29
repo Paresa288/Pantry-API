@@ -1,9 +1,9 @@
 ﻿using Business.ServiceResponder;
 using Common.Models.Items;
 
-namespace Business.ItemServices
+namespace Business.ItemsService
 {
-    public interface IItemServices
+    public interface IItemsService
     {
         public Task<ServiceResponse<List<ItemDto>>> GetAllItemsAsync();
 

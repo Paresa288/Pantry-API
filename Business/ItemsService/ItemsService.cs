@@ -2,13 +2,13 @@
 using Common.Models.Items;
 using Persistence.Repository.ItemsRepository;
 
-namespace Business.ItemServices
+namespace Business.ItemsService
 {
-    public class ItemServices : IItemServices
+    public class ItemsService : IItemsService
     {
         private readonly IItemsRepository _itemsRepository;
 
-        public ItemServices(IItemsRepository itemsRepository)
+        public ItemsService(IItemsRepository itemsRepository)
         {
             _itemsRepository = itemsRepository;
         }

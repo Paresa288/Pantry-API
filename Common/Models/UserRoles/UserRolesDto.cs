@@ -1,6 +1,6 @@
-﻿namespace Common.Models.Roles
+﻿namespace Common.Models.UserRoles
 {
-    public class RoleDto
+    public class UserRolesDto
     {
         public string Name { get; set; } = null!;
         public string? Description { get; set; }
