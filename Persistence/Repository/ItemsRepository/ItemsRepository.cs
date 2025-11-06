@@ -13,7 +13,13 @@ namespace Persistence.Repository.ItemsRepository
         }
         public async Task<List<ItemDto>> GetAllAsync()
         {
-            return await _context.Items.Select(i => new ItemDto{}).ToListAsync();
+            return await _context.Items.Select(i => new ItemDto{
+                Name = i.Name,
+                CategoryId= i.CategoryId,
+                Unit = i.Unit,
+
+
+            }).ToListAsync();
         }
         public async Task<Item?> GetByIdAsync(int id)
         {
@@ -31,20 +37,21 @@ namespace Persistence.Repository.ItemsRepository
             return id;
         }
 
-        public async Task<int> CreateItemAsync(CreateItemDto createItemDto)
+        public async Task<int> CreateItemAsync(ItemDto ItemDto, int userStorageLocationId, int stock)
         {
             var item = new Item 
             {
-                Name = createItemDto.Name,
-                Unit = createItemDto.Unit,
-                CategoryId = createItemDto.CategoryId
+                Name = ItemDto.Name,
+                Unit = ItemDto.Unit,
+                CategoryId = ItemDto.CategoryId
             };
             await _context.Items.AddAsync(item);
 
             await _context.Items_Users_StorageLocations.AddAsync(new Items_Users_StorageLocations
             {
                 Item = item,
-                UserStorageLocationId = createItemDto.UserStorageLocationId
+                UserStorageLocationId = userStorageLocationId,
+                Stock = stock
             });
 
             await _context.SaveChangesAsync();

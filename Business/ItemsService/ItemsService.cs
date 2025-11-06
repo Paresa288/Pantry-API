@@ -12,9 +12,9 @@ namespace Business.ItemsService
         {
             _itemsRepository = itemsRepository;
         }
-        public async Task<ServiceResponse<int>> CreateItemAsync(CreateItemDto createItemDto)
+        public async Task<ServiceResponse<int>> CreateItemAsync(ItemDto ItemDto, int userStorageLocationId, int stock)
         {
-            var item = await _itemsRepository.CreateItemAsync(createItemDto);
+            var item = await _itemsRepository.CreateItemAsync(ItemDto, userStorageLocationId, stock);
             return ServiceResponse<int>._Success(item, 201);
         }
 

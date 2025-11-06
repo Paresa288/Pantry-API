@@ -3,6 +3,7 @@ using Business.ItemsService;
 using Business.StorageLocationsService;
 using Business.UsersService;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Persistence;
 using Persistence.Repository.CategoriesRepository;
 using Persistence.Repository.ItemsRepository;
@@ -21,15 +22,21 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PantryDbContext>(options=> 
     options.UseSqlServer(conString, sql => sql.MigrationsAssembly(typeof(PantryDbContext).Assembly.FullName)));
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUsersService, UsersService >();
+
 builder.Services.AddScoped<IStorageLocationsRepository, StorageLocationsRepository>();
 builder.Services.AddScoped<IStorageLocationsService, StorageLocationsService>();
+
 builder.Services.AddScoped<IItemsRepository, ItemsRepository>();
 builder.Services.AddScoped<IItemsService, ItemsService>();
+
 builder.Services.AddScoped<ICategoriesRepository, CategoriesRepository>();
 builder.Services.AddScoped<ICategoriesService, CategoriesService>();
 
+builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+    .AddEntityFrameworkStores<PantryDbContext>();
 
 var app = builder.Build();
 

@@ -7,6 +7,6 @@ namespace Business.ItemsService
     {
         public Task<ServiceResponse<List<ItemDto>>> GetAllItemsAsync();
 
-        public Task<ServiceResponse<int>> CreateItemAsync(CreateItemDto createItemDto);
+        public Task<ServiceResponse<int>> CreateItemAsync(ItemDto ItemDto, int userStorageLocationId, int stock);
     }
 }

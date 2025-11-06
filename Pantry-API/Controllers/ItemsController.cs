@@ -26,9 +26,9 @@ namespace Pantry_API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateItem([FromBody] CreateItemDto createItemDto)
+        public async Task<IActionResult> CreateItem([FromBody] ItemDto ItemDto, int userStorageLocationId, int stock)
         {
-            var result = await _itemsService.CreateItemAsync(createItemDto);
+            var result = await _itemsService.CreateItemAsync(ItemDto, userStorageLocationId, stock);
             return StatusCode(result.StatusCode, result);
         }
     }

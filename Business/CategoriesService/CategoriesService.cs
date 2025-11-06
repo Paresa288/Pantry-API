@@ -49,7 +49,7 @@ namespace Business.CategoriesService
             try
             {
                 var categoryId = await _categoriesRepository.CreateCategory(CategoryDto);
-                return ServiceResponse<int>._Success(categoryId, 200);
+                return ServiceResponse<int>._Success(categoryId, 201);
                 
             }
             catch (Exception ex)
@@ -64,7 +64,7 @@ namespace Business.CategoriesService
             try
             {                 
                 var deletedCategoryId = await _categoriesRepository.DeleteCategory(id);
-                return ServiceResponse<int>._Success(deletedCategoryId, 200);
+                return ServiceResponse<int>._Success(deletedCategoryId, 204);
 
             }
             catch (Exception ex)

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
@@ -11,9 +12,11 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(PantryDbContext))]
-    partial class PantryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251030120233_AddedStockColumnToIUSLTable")]
+    partial class AddedStockColumnToIUSLTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,6 +106,9 @@ namespace Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("UserStorageLocationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.Property<int>("Stock")
