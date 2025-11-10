@@ -22,14 +22,14 @@ namespace Pantry_API.Controllers
         public async Task<IActionResult> GetAllItems()
         {
             var items = await _itemsService.GetAllItemsAsync();
-            return StatusCode(items.StatusCode, items);
+            return StatusCode(200, items);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateItem([FromBody] ItemDto ItemDto, int userStorageLocationId, int stock)
         {
             var result = await _itemsService.CreateItemAsync(ItemDto, userStorageLocationId, stock);
-            return StatusCode(result.StatusCode, result);
+            return StatusCode(201, result);
         }
     }
 }

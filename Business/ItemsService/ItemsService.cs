@@ -12,16 +12,16 @@ namespace Business.ItemsService
         {
             _itemsRepository = itemsRepository;
         }
-        public async Task<ServiceResponse<int>> CreateItemAsync(ItemDto ItemDto, int userStorageLocationId, int stock)
+        public async Task<ItemDto> CreateItemAsync(ItemDto ItemDto, int userStorageLocationId, int stock)
         {
             var item = await _itemsRepository.CreateItemAsync(ItemDto, userStorageLocationId, stock);
-            return ServiceResponse<int>._Success(item, 201);
+            return item;
         }
 
-        public async Task<ServiceResponse<List<ItemDto>>> GetAllItemsAsync()
+        public async Task<List<ItemDto>> GetAllItemsAsync()
         {
             var items =  await _itemsRepository.GetAllAsync();
-            return ServiceResponse<List<ItemDto>>._Success(items, 200);
+            return items;
         }
     }
 }

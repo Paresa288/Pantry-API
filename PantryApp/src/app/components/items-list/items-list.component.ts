@@ -19,7 +19,7 @@ export class ItemsListComponent implements OnInit {
   getItems() {
     this.itemsService.getItems().subscribe({
       next: (res) => {
-        this.itemsService.items = res.data;
+        this.itemsService.items = res;
       },
       error: (e) => {
         console.log(e);

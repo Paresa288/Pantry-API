@@ -23,18 +23,16 @@ namespace Persistence.Repository.CategoriesRepository
                 .ToListAsync();
         }
 
-        public async Task<CategoryDto> GetCategoryById(int id)
+        public async Task<CategoryDto?> GetCategoryById(int id)
         {
-            var category =  await _context.Categories.FindAsync(id);
-            if (category == null)
-            {
-                return null;
-            }
-            return new CategoryDto
-            {
-                Name = category.Name,
-                Description = category.Description
-            };
+            var category = await _context.Categories
+                .Where(c => c.Id == id)
+                .Select(c => new CategoryDto
+                {
+                    Name = c.Name,
+                    Description = c.Description
+                }).FirstOrDefaultAsync();
+            return category;
         }
 
         public async Task<int> CreateCategory(CategoryDto categoryDto)
@@ -50,14 +48,9 @@ namespace Persistence.Repository.CategoriesRepository
 
         public async Task<int> DeleteCategory(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
-            {
-                return 0;
-            }
-            _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
-            return id;
+            return await _context.Categories
+                .Where(c => c.Id == id)
+                .ExecuteDeleteAsync();
         }
     }
 }

@@ -17,8 +17,7 @@ namespace Persistence.Repository.ItemsRepository
                 Name = i.Name,
                 CategoryId= i.CategoryId,
                 Unit = i.Unit,
-
-
+                ExpDate = i.ExpDate
             }).ToListAsync();
         }
         public async Task<Item?> GetByIdAsync(int id)
@@ -27,23 +26,19 @@ namespace Persistence.Repository.ItemsRepository
         }
         public async Task<int> DeleteItemAsync(int id)
         {
-            var item = await _context.Items.FindAsync(id);
-            if(item == null)
-            {
-                return 0;
-            }
-            _context.Items.Remove(item);
-            await _context.SaveChangesAsync();
-            return id;
+            return await _context.Items
+                .Where(i => i.Id == id)
+                .ExecuteDeleteAsync();
         }
 
-        public async Task<int> CreateItemAsync(ItemDto ItemDto, int userStorageLocationId, int stock)
+        public async Task<ItemDto> CreateItemAsync(ItemDto ItemDto, int userStorageLocationId, int stock)
         {
             var item = new Item 
             {
                 Name = ItemDto.Name,
                 Unit = ItemDto.Unit,
-                CategoryId = ItemDto.CategoryId
+                CategoryId = ItemDto.CategoryId,
+                ExpDate = ItemDto.ExpDate,
             };
             await _context.Items.AddAsync(item);
 
@@ -55,7 +50,13 @@ namespace Persistence.Repository.ItemsRepository
             });
 
             await _context.SaveChangesAsync();
-            return item.Id;
+            return new ItemDto
+            {
+                Name = item.Name,
+                Unit = item.Unit,
+                CategoryId = item.CategoryId,
+                ExpDate = item.ExpDate,
+            };
         }
     }
 }

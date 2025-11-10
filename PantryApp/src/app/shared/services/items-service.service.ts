@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Item } from '../../types/item'
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Response } from '../../types/response';
 
 @Injectable({
@@ -17,6 +17,10 @@ export class ItemsServiceService {
   }
 
   getItems() {
-    return this.http.get<Response>(this.API_URL);
+    return this.http.get<Item[]>(this.API_URL);
+  }
+
+  createItem(item: Item) {
+    return this.http.post<Item>(this.API_URL + "?userStorageLocationId=3&stock=500", item, { params: HttpParams });
   }
 }
