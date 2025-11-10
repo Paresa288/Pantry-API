@@ -10,9 +10,10 @@ using Persistence.Repository.ItemsRepository;
 using Persistence.Repository.StorageLocationsRepository;
 using Persistence.Repository.UsersRepository;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
-var conString = builder.Configuration.GetConnectionString("PantryDbLaptop") ?? 
+var conString = builder.Configuration.GetConnectionString("PantryDbDesktop") ?? 
     throw new InvalidOperationException("Connection string 'PantryDb' not found.");
 
 // Add services to the container.
@@ -40,6 +41,12 @@ builder.Services.AddIdentityApiEndpoints<IdentityUser>()
 
 var app = builder.Build();
 
+app.Use((ctx, next) =>
+{
+    ctx.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+    return next();
+});
+
 using (var scope = app.Services.CreateScope())
 {     var dbContext = scope.ServiceProvider.GetRequiredService<PantryDbContext>();
     dbContext.Database.Migrate();
@@ -58,7 +65,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.MapControllers();
 
 app.Run();

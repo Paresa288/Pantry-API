@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { UserComponent } from './user/user.component';
+import { UserComponent } from './pages/user/user.component';
 import { InventoryComponent } from './pages/inventory/inventory.component';
 import { AddItemComponent } from './pages/addItem/add-item.component';
 

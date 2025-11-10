@@ -11,9 +11,6 @@ publish/
 *.userosscache
 *.sln.docstates
 
-# Rider
-.idea/
-
 # VS Code
 .vscode/
 
@@ -32,6 +29,18 @@ logs/
 .DS_Store
 Thumbs.db
 ehthumbs.db
+
+# Ignore all EF Core Migrations folders and their contents
+**/Migrations/
+**/migrations/
+
+# App settings / local secrets
+appsettings.json
+appsettings.*.json
+local.settings.json
+.env
+.env.*
+.env.local
 
 # Certificates and keys
 *.pem

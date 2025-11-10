@@ -41,6 +41,26 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Productos derivados de la leche.",
+                            Name = "Lácteos"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Alimentos enlatados o en frascos.",
+                            Name = "Conservas"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Productos frescos como frutas y verduras.",
+                            Name = "Frutas y Verduras"
+                        });
                 });
 
             modelBuilder.Entity("Persistence.Entities.Item", b =>
@@ -80,7 +100,7 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CategoryId = 0,
+                            CategoryId = 2,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ExpDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Tomate Frito",
@@ -89,11 +109,20 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 2,
-                            CategoryId = 0,
+                            CategoryId = 1,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ExpDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Leche Sin Lactosa",
                             Unit = "liters"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 3,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Manzanas",
+                            Unit = "kg"
                         });
                 });
 
@@ -134,6 +163,20 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Administrator with full access",
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Regular user with limited access",
+                            Name = "User"
+                        });
                 });
 
             modelBuilder.Entity("Persistence.Entities.StorageLocation", b =>
@@ -230,11 +273,13 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Persistence.Entities.Item", b =>
                 {
-                    b.HasOne("Persistence.Entities.Category", null)
+                    b.HasOne("Persistence.Entities.Category", "Category")
                         .WithMany("Items")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Persistence.Entities.Items_Users_StorageLocations", b =>

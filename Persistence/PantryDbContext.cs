@@ -12,6 +12,14 @@ namespace Persistence
     public class PantryDbContext : DbContext
     {
         /// <summary>
+        /// Configures the model for the context using the specified <see cref="ModelBuilder"/>.
+        /// </summary>
+        /// <param name="modelBuilder">The builder used to construct the model for the context.</param>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
+        /// <summary>
         /// Initializes a new instance of the <see cref="PantryDbContext"/> class with the specified options.
         /// </summary>
         /// <param name="options">The options to be used by the DbContext.</param>
@@ -55,13 +63,5 @@ namespace Persistence
         /// </summary>
         public DbSet<Items_Users_StorageLocations> Items_Users_StorageLocations { get; set; } = null!;
 
-        /// <summary>
-        /// Configures the model for the context using the specified <see cref="ModelBuilder"/>.
-        /// </summary>
-        /// <param name="modelBuilder">The builder used to construct the model for the context.</param>
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-        }
     }
 }

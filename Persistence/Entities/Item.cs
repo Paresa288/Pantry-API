@@ -19,11 +19,11 @@ namespace Persistence.Entities
         [MaxLength(100), Required]
         public string Name { get; set; } = null!;
 
-        [MaxLength(20)]
+        [MaxLength(20), Required]
         public string Unit { get; set; } = null!;
         public DateTime? ExpDate { get; set; }
         public DateTime CreatedAt { get; set; }
         public int CategoryId { get; set; }
-        public Category Categories { get; }
+        public Category Category { get; set; }
     }
 }

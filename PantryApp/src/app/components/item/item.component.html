@@ -1,0 +1,16 @@
+<div class="card mb-2">
+  <div class="card-header">
+    <h5>
+      {{ item.name }}
+    </h5>
+  </div>
+  <div class="card-body">
+    <p class="card-text">Category: {{ item.categoryId }}</p>
+    <p class="card-text">Unit: {{ item.unit }}</p>
+    @if ( item.expDate ) {
+      <p class="card-text">Expiration Date: {{ item.expDate  }}</p>
+    } @else {
+      <p class="card-text">Expiration Date: Never</p>
+    }
+  </div>
+</div>

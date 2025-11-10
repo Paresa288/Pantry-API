@@ -7,7 +7,7 @@ namespace Persistence.Entities.Configuration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.Property(u => u.RoleId).HasDefaultValue(2);
+            builder.Property(u => u.RoleId).HasDefaultValue(2).ValueGeneratedOnAdd();
         }
     }
 }

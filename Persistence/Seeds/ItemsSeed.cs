@@ -12,6 +12,7 @@ namespace Persistence.Seeds
                 new Item
                 {
                     Id = 1,
+                    CategoryId = 2,
                     Name = "Tomate Frito",
                     Unit = "pcs",
                     ExpDate = new DateTime(11 / 22 / 2025),
@@ -19,11 +20,21 @@ namespace Persistence.Seeds
                 new Item
                 {
                     Id = 2,
+                    CategoryId = 1,
                     Name = "Leche Sin Lactosa",
                     Unit = "liters",
                     ExpDate = new DateTime(11 / 22 / 2025),
+                },
+                new Item
+                {
+                    Id = 3,
+                    CategoryId = 3,
+                    Name = "Manzanas",
+                    Unit = "kg",
+                    ExpDate = new DateTime(11 / 22 / 2025),
                 }
                 );
+
         }
     }
 }
