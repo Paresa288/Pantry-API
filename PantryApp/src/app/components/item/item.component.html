@@ -1,8 +1,9 @@
-<div class="card mb-2">
-  <div class="card-header">
+<div class="card mb-2 shadow-lg">
+  <div class="card-header d-flex">
     <h5>
       {{ item.name }}
     </h5>
+    <i class="fa fa-times ms-auto text-danger" aria-hidden="true" role="button" (click)="deleteItem()"></i>
   </div>
   <div class="card-body">
     <p class="card-text">Category: {{ item.categoryId }}</p>

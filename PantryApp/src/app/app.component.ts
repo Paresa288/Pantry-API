@@ -10,4 +10,5 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'PantryApp';
+  user = { id: 3, name: 'Pablo' }; // Example user object
 }
