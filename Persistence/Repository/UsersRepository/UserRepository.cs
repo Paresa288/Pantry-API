@@ -23,19 +23,16 @@ namespace Persistence.Repository.UsersRepository
 
         }
         
-        public async Task<UserDto> GetByIdAsync(int id)
+        public async Task<UserDto?> GetByIdAsync(int id)
         {
-             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
-                if (user == null)
-                {
-                    return null!;
-                }
-                return new UserDto
-                {
-                    Name = user.Name,
-                    Email = user.Email,
-                    RoleId = user.RoleId,
-                };
+            return await _context.Users
+            .Where(u => u.Id == id)
+            .Select(u => new UserDto
+            {
+                Name = u.Name,
+                Email = u.Email,
+                RoleId = u.RoleId,
+            }).FirstOrDefaultAsync();
         }
         
         public async Task<int> CreateAsync(CreateUserDto createUserDto)
@@ -52,14 +49,9 @@ namespace Persistence.Repository.UsersRepository
 
         public async Task<int> DeleteAsync(int id)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
-            if (user == null)
-            {
-                return 0;
-            }
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-            return id;
+            return await _context.Users
+                .Where(u => u.Id == id)
+                .ExecuteDeleteAsync();
         }
     }
 }

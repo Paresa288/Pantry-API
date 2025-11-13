@@ -20,10 +20,20 @@ namespace Persistence.Repository.ItemsRepository
                 ExpDate = i.ExpDate
             }).ToListAsync();
         }
-        public async Task<Item?> GetByIdAsync(int id)
+        
+        public async Task<ItemDto?> GetByIdAsync(int id)
         {
-            return await _context.Items.FindAsync(id);
+            return await _context.Items
+                .Where(i => i.Id == id)
+                .Select(i => new ItemDto
+                {
+                    Name = i.Name,
+                    CategoryId= i.CategoryId,
+                    Unit = i.Unit,
+                    ExpDate = i.ExpDate
+                }).FirstOrDefaultAsync();
         }
+        
         public async Task<int> DeleteItemAsync(int id)
         {
             return await _context.Items

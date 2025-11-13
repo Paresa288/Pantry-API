@@ -34,14 +34,9 @@ namespace Persistence.Repository.StorageLocationsRepository
 
         public async  Task<int> DeleteStorageLocationAsync(int id)
         {
-            var storageLocation = await _context.StorageLocations.FindAsync(id);
-            if (storageLocation == null)
-            {
-                return 0;
-            }
-            _context.StorageLocations.Remove(storageLocation);
-            await _context.SaveChangesAsync();
-            return id;
+            return await _context.StorageLocations
+                .Where(sl => sl.Id == id)
+                .ExecuteDeleteAsync();
         }
 
         public async Task<List<StorageLocationDto>> GetAllAsync()
@@ -52,12 +47,13 @@ namespace Persistence.Repository.StorageLocationsRepository
                     Name = sl.Name,
                     Description = sl.Description
                 })
+                .AsNoTracking()
                 .ToListAsync();
         }
 
         public async Task<StorageLocationDto?> GetByIdAsync(int id)
         {
-            var storageLocation =  await _context.StorageLocations
+            return await _context.StorageLocations
                 .Where(sl => sl.Id == id)
                 .Select(sl => new StorageLocationDto
                 {
@@ -65,11 +61,6 @@ namespace Persistence.Repository.StorageLocationsRepository
                     Description = sl.Description
                 })
                 .FirstOrDefaultAsync();
-            if(storageLocation == null)
-            {
-                return null;
-            }
-            return storageLocation;
         }
     }
 }

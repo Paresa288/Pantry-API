@@ -25,14 +25,13 @@ namespace Persistence.Repository.CategoriesRepository
 
         public async Task<CategoryDto?> GetCategoryById(int id)
         {
-            var category = await _context.Categories
+            return await _context.Categories
                 .Where(c => c.Id == id)
                 .Select(c => new CategoryDto
                 {
                     Name = c.Name,
                     Description = c.Description
                 }).FirstOrDefaultAsync();
-            return category;
         }
 
         public async Task<int> CreateCategory(CategoryDto categoryDto)

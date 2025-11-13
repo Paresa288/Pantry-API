@@ -43,7 +43,7 @@ var app = builder.Build();
 
 app.Use((ctx, next) =>
 {
-    ctx.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+    ctx.Response.Headers.Append("Access-Control-Allow-Origin", "*");
     return next();
 });
 
