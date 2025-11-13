@@ -6,7 +6,7 @@ import { AddItemFormComponent } from "../../components/add-item-form/add-item-fo
   selector: 'app-inventory',
   imports: [ItemsListComponent, AddItemFormComponent],
   templateUrl: './inventory.component.html',
-  styleUrl: './inventory.component.css'
+  styles: ''
 })
 export class InventoryComponent {
   class = "d-none"
