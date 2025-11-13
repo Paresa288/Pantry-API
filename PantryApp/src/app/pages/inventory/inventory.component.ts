@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { ItemsListComponent } from '../../components/items-list/items-list.component';
 import { AddItemFormComponent } from "../../components/add-item-form/add-item-form.component";
 

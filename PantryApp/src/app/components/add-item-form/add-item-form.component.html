@@ -1,33 +1,35 @@
-<form [formGroup]="addItemForm" (ngSubmit)="onSubmit()" class="shadow-lg">
-  <div class="form-floating">
-    <input type="text" class="form-control mb-3 bg-body-secondary" id="floatingName" placeholder="Name"
-      formControlName="name">
-    <label for="floatingName">Name</label>
-  </div>
-  <div class="form-floating">
-    <input type="number" class="form-control mb-3 bg-body-secondary" id="floatingCategory" placeholder="Category"
-      formControlName="category">
-    <label for="floatingCategory">Category</label>
-  </div>
-  <div class="form-floating">
-    <input type="text" class="form-control mb-3 bg-body-secondary" id="floatingUnit" placeholder="Unit"
-      formControlName="unit">
-    <label for="floatingUnit">Unit</label>
-  </div>
-  <div class="form-floating">
-    <input type="date" class="form-control mb-3 bg-body-secondary" id="floatingDate" placeholder="Exp. Date"
-      formControlName="expirationDate">
-    <label for="floatingDate">Exp. Date</label>
-  </div>
-  <div class="form-floating">
-    <input type="number" class="form-control mb-3 bg-body-secondary" id="floatingUSLId"
-      placeholder="user_StorageLocationId" formControlName="USLId">
-    <label for="floatingUSLId">Storage Location</label>
-  </div>
-  <div class="form-floating">
-    <input type="number" class="form-control mb-3 bg-body-secondary" id="floatingStock" placeholder="Stock"
-      formControlName="stock">
-    <label for="floatingStock">Stock</label>
-  </div>
-  <button class="btn btn-primary w-100 py-2" (click)="onSubmit()">Add</button>
-</form>
+<div class="container ">
+  <form [formGroup]="addItemForm" (ngSubmit)="onSubmit()" class="shadow-lg p-5 position-absolute top-50 start-50 translate-middle z-3 bg-white">
+    <div class="form-floating">
+      <input type="text" class="form-control mb-3 bg-body-secondary" id="floatingName" placeholder="Name"
+        formControlName="name">
+      <label for="floatingName">Name</label>
+    </div>
+    <div class="form-floating">
+      <input type="number" class="form-control mb-3 bg-body-secondary" id="floatingCategory" placeholder="Category"
+        formControlName="category">
+      <label for="floatingCategory">Category</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" class="form-control mb-3 bg-body-secondary" id="floatingUnit" placeholder="Unit"
+        formControlName="unit">
+      <label for="floatingUnit">Unit</label>
+    </div>
+    <div class="form-floating">
+      <input type="date" class="form-control mb-3 bg-body-secondary" id="floatingDate" placeholder="Exp. Date"
+        formControlName="expirationDate">
+      <label for="floatingDate">Exp. Date</label>
+    </div>
+    <div class="form-floating">
+      <input type="number" class="form-control mb-3 bg-body-secondary" id="floatingUSLId"
+        placeholder="user_StorageLocationId" formControlName="USLId">
+      <label for="floatingUSLId">Storage Location</label>
+    </div>
+    <div class="form-floating">
+      <input type="number" class="form-control mb-3 bg-body-secondary" id="floatingStock" placeholder="Stock"
+        formControlName="stock">
+      <label for="floatingStock">Stock</label>
+    </div>
+    <button class="btn btn-primary w-100 py-2" (click)="onSubmit()">Add</button>
+  </form>
+</div>

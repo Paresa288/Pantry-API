@@ -1,11 +1,13 @@
 <div class="container">
+  <div class="container p-3">
+    <button class="btn btn-primary w-100 shadow-lg" (click)="ChangeVisibility()">Add Items</button>
+  </div>
   <div class="row vh-100 align-items-center">
+    <div class="{{ class }} col-xxl-4 offset-xxl-4 col-lg-6 offset-lg-3 col-10 offset-1">
+      <app-add-item-form></app-add-item-form>
+    </div>
     <div class="col-xxl-4 offset-xxl-4 col-lg-6 offset-lg-3 col-10 offset-1">
       <app-items-list></app-items-list>
-      <button class="btn btn-primary w-100 shadow-lg" (click)="ChangeVisibility()">Add Items</button>
-  </div>
-  <div class="{{ class }} col-xxl-4 ">
-    <app-add-item-form ></app-add-item-form>
-  </div>
+    </div>
   </div>
 </div>
