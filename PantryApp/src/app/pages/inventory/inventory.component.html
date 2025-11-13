@@ -1,9 +1,6 @@
 <div class="container">
-  <button class="btn btn-primary rounded shadow-lg fixed-bottom m-2" (click)="ChangeVisibility()"><i class="fa fa-plus-square"></i>New Item</button>
+  <button class="btn btn-primary rounded shadow-lg fixed-bottom m-2" (click)="open()"><i class="fa fa-plus-square"></i>New Item</button>
   <div class="row vh-100 align-items-center">
-    <div class="{{ class }} col-xxl-4 offset-xxl-4 col-lg-6 offset-lg-3 col-10 offset-1">
-      <app-add-item-form></app-add-item-form>
-    </div>
     <div class="col-xxl-4 offset-xxl-4 col-lg-6 offset-lg-3 col-10 offset-1">
       <app-items-list></app-items-list>
     </div>

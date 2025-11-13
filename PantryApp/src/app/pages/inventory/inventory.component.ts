@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ItemsListComponent } from '../../components/items-list/items-list.component';
 import { AddItemFormComponent } from "../../components/add-item-form/add-item-form.component";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-inventory',
@@ -9,6 +10,11 @@ import { AddItemFormComponent } from "../../components/add-item-form/add-item-fo
   styles: ''
 })
 export class InventoryComponent {
+  private modalService = inject(NgbModal);
+  
+  open() {
+    const modalRef = this.modalService.open(AddItemFormComponent);
+  }
   class = "d-none"
   
   ChangeVisibility() {

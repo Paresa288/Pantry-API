@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class LocationsService {
-  readonly API_URL = "https://localhost:7157/api/Locations";
+  readonly API_URL = "https://localhost:7157/api/StorageLocations";
 
   locations: Location[];
 

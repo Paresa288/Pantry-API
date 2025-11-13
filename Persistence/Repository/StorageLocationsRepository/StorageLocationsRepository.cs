@@ -44,6 +44,7 @@ namespace Persistence.Repository.StorageLocationsRepository
             return await _context.StorageLocations
                 .Select(sl => new StorageLocationDto
                 {
+                    Id = sl.Id,
                     Name = sl.Name,
                     Description = sl.Description
                 })
@@ -57,6 +58,7 @@ namespace Persistence.Repository.StorageLocationsRepository
                 .Where(sl => sl.Id == id)
                 .Select(sl => new StorageLocationDto
                 {
+                    Id = sl.Id,
                     Name = sl.Name,
                     Description = sl.Description
                 })
