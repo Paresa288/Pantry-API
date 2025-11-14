@@ -35,7 +35,7 @@ namespace Persistence.Repository.Users_StorageLocationsRepository
                 .ToListAsync();
         }
 
-        public async Task<Users_StorageLocationsDto> GetById(int id)
+        public async Task<Users_StorageLocationsDto?> GetById(int id)
         {
             return await _context.Users_StorageLocations
                 .Where(usl => usl.Id == id)
@@ -43,9 +43,9 @@ namespace Persistence.Repository.Users_StorageLocationsRepository
                 {
                     UserId = usl.UserId,
                     StorageLocationId = usl.StorageLocationId
-                })
-                .FirstOrDefaultAsync();
+                }).FirstOrDefaultAsync();
         }
+                
         
         public async Task<int> Delete(int id)
         {

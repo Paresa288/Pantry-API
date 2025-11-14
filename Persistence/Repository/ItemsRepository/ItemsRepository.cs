@@ -20,10 +20,20 @@ namespace Persistence.Repository.ItemsRepository
                 ExpDate = i.ExpDate
             }).ToListAsync();
         }
-        public async Task<Item?> GetByIdAsync(int id)
+        
+        public async Task<ItemDto?> GetByIdAsync(int id)
         {
-            return await _context.Items.FindAsync(id);
+            return await _context.Items
+                .Where(i => i.Id == id)
+                .Select(i => new ItemDto
+                {
+                    Name = i.Name,
+                    CategoryId= i.CategoryId,
+                    Unit = i.Unit,
+                    ExpDate = i.ExpDate
+                }).FirstOrDefaultAsync();
         }
+        
         public async Task<int> DeleteItemAsync(int id)
         {
             return await _context.Items
@@ -33,10 +43,6 @@ namespace Persistence.Repository.ItemsRepository
 
         public async Task<ItemDto> CreateItemAsync(ItemDto ItemDto, int userStorageLocationId, int stock)
         {
-            var categoryExists = await _context.Categories.AnyAsync(c => c.Id == ItemDto.CategoryId);
-            if (!categoryExists)
-                throw new InvalidOperationException($"CategoryId {ItemDto.CategoryId} does not exist."); 
-            
             var item = new Item 
             {
                 Name = ItemDto.Name,

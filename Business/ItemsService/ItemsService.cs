@@ -1,5 +1,4 @@
-﻿using Business.ServiceResponder;
-using Common.Models.Items;
+﻿using Common.Models.Items;
 using Persistence.Repository.ItemsRepository;
 
 namespace Business.ItemsService
@@ -22,10 +21,15 @@ namespace Business.ItemsService
         {
             return await _itemsRepository.GetAllAsync();
         }
-        
+
         public async Task<int> DeleteItemAsync(int id)
         {
             return await _itemsRepository.DeleteItemAsync(id);
+        }
+
+        public async Task<ItemDto?> GetItemByIdAsync(int id)
+        {
+            return await _itemsRepository.GetByIdAsync(id);
         }
     }
 }

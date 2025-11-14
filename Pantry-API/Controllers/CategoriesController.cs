@@ -19,14 +19,7 @@ namespace Pantry_API.Controllers
         public async Task<IActionResult> GetAllCategoriesAsync()
         {
             var results = await _iCategoriesService.GetAllCategoriesAsync();
-            if (results == null || !results.Any())
-            {
-                return StatusCode(204, results); // No Content
-            }
-            else
-            {
-                return StatusCode(200, results); // OK
-            }
+            return StatusCode(200, results);
         }
 
         [HttpGet("{id}")]
@@ -35,40 +28,23 @@ namespace Pantry_API.Controllers
             var result = await _iCategoriesService.GetCategoryByIdAsync(id);
             if (result == null)
             {
-                return StatusCode(404, $"Category with Id {id} not found."); // Not Found
+                return StatusCode(404, "Category Not found");
             }
-            else
-            {
-                return StatusCode(200, result); // OK
-            }
+            return StatusCode(200, result);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateCategoryAsync([FromBody] CategoryDto categoryDto)
         {
             var result = await _iCategoriesService.CreateCategoryAsync(categoryDto);
-            if (result == null)
-            {
-                return StatusCode(400, "Failed to create category."); // Bad Request
-            }
-            else
-            {
-                return StatusCode(201, result); // Created
-            }
+            return StatusCode(201, result);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategoryAsync(int id)
         {
             var result = await _iCategoriesService.DeleteCategoryAsync(id);
-            if (result == 0)
-            {
-                return StatusCode(404, $"Category with Id {id} not found."); // Not Found
-            }
-            else
-            {
-                return StatusCode(204); // No Content
-            }
+            return StatusCode(200, result);
         }
     }
 }

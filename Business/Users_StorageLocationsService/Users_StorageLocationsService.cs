@@ -1,5 +1,4 @@
-﻿using Business.ServiceResponder;
-using Common.Models.UsersStorageLocations;
+﻿using Common.Models.UsersStorageLocations;
 using Persistence.Repository.Users_StorageLocationsRepository;
 
 namespace Business.Users_StorageLocationsService
@@ -13,17 +12,17 @@ namespace Business.Users_StorageLocationsService
             _users_StorageLocationsRepository = user_StorageLocationRepository;
         }
 
-        public Task<ServiceResponse<int>> AssignStorageLocationToUserAsync(int userId, int storageLocationId)
+        public Task<int> AssignStorageLocationToUserAsync(int userId, int storageLocationId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ServiceResponse<List<Users_StorageLocationsDto>>> GetStorageLocationsByUserIdAsync(int userId)
+        public Task<List<Users_StorageLocationsDto>> GetStorageLocationsByUserIdAsync(int userId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ServiceResponse<int>> RemoveStorageLocationFromUserAsync(int userId, int storageLocationId)
+        public Task<int> RemoveStorageLocationFromUserAsync(int userId, int storageLocationId)
         {
             throw new NotImplementedException();
         }

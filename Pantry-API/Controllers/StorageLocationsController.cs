@@ -19,28 +19,28 @@ namespace Pantry_API.Controllers
         public async Task<IActionResult> GetAllStorageLocationsAsync()
         {
             var results = await _storageLocationsService.GetAllStorageLocationsAsync();
-            return StatusCode(results.StatusCode, results);
+            return StatusCode(200, results);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetStorageLocationByIdAsync(int id)
         {
             var result = await _storageLocationsService.GetStorageLocationsByIdAsync(id);
-            return StatusCode(result.StatusCode, result);
+            return StatusCode(200, result);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateStorageLocationAsync([FromBody] CreateStorageLocationDto createStorageLocationDto)
         {
             var result = await _storageLocationsService.CreateStorageLocationAsync(createStorageLocationDto);
-            return StatusCode(result.StatusCode, result);
+            return StatusCode(201, result);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStorageLocationAsync(int id)
         {
             var result = await _storageLocationsService.DeleteStorageLocationAsync(id);
-            return StatusCode(result.StatusCode, result);
+            return StatusCode(200, result);
         }
     }
 }

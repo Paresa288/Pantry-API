@@ -22,7 +22,7 @@ namespace Business.CategoriesService
             return await _categoriesRepository.GetCategoryById(id);
         }
         
-        public async Task<CategoryDto> CreateCategoryAsync(CategoryDto CategoryDto)
+        public async Task<int> CreateCategoryAsync(CategoryDto CategoryDto)
         {   
             return await _categoriesRepository.CreateCategory(CategoryDto);
         }
@@ -30,7 +30,6 @@ namespace Business.CategoriesService
         public async Task<int> DeleteCategoryAsync(int id)
         {
             return await _categoriesRepository.DeleteCategory(id);
-        }
-
+        }   
     }
 }

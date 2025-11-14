@@ -1,5 +1,4 @@
-﻿using Business.ServiceResponder;
-using Common.Models.Categories;
+﻿using Common.Models.Categories;
 
 namespace Business.CategoriesService
 {
@@ -7,7 +6,7 @@ namespace Business.CategoriesService
     {
         public Task<List<CategoryDto>> GetAllCategoriesAsync();
         public Task<CategoryDto> GetCategoryByIdAsync(int id);
-        public Task<CategoryDto> CreateCategoryAsync(CategoryDto CategoryDto);
+        public Task<int> CreateCategoryAsync(CategoryDto CategoryDto);
         public Task<int> DeleteCategoryAsync(int id);
 
     }

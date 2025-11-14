@@ -44,9 +44,8 @@ var app = builder.Build();
 
 app.UseCors(options =>
 {
-    options.AllowAnyMethod();
-    options.AllowAnyHeader();
-    options.SetIsOriginAllowed(origin => true);
+    ctx.Response.Headers.Append("Access-Control-Allow-Origin", "*");
+    return next();
 });
 
 using (var scope = app.Services.CreateScope())

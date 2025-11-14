@@ -1,12 +1,11 @@
-﻿using Business.ServiceResponder;
-using Common.Models.Items;
+﻿using Common.Models.Items;
 
 namespace Business.ItemsService
 {
     public interface IItemsService
     {
         public Task<List<ItemDto>> GetAllItemsAsync();
-
+        public Task<ItemDto?> GetItemByIdAsync(int id);
         public Task<ItemDto> CreateItemAsync(ItemDto ItemDto, int userStorageLocationId, int stock);
         public Task<int> DeleteItemAsync(int id);
     }
