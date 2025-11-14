@@ -35,7 +35,7 @@ namespace Persistence.Repository.CategoriesRepository
             return category;
         }
 
-        public async Task<int> CreateCategory(CategoryDto categoryDto)
+        public async Task<CategoryDto> CreateCategory(CategoryDto categoryDto)
         {
             var category = await _context.Categories.AddAsync(new Entities.Category
             {
@@ -43,7 +43,10 @@ namespace Persistence.Repository.CategoriesRepository
                 Description = categoryDto.Description
             });
             await _context.SaveChangesAsync();
-            return category.Entity.Id;
+            return new CategoryDto { 
+                Name = category.Entity.Name,
+                Description = category.Entity.Description
+            };
         }
 
         public async Task<int> DeleteCategory(int id)

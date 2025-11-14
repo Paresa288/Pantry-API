@@ -8,5 +8,6 @@ namespace Business.ItemsService
         public Task<List<ItemDto>> GetAllItemsAsync();
 
         public Task<ItemDto> CreateItemAsync(ItemDto ItemDto, int userStorageLocationId, int stock);
+        public Task<int> DeleteItemAsync(int id);
     }
 }

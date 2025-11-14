@@ -33,6 +33,10 @@ namespace Persistence.Repository.ItemsRepository
 
         public async Task<ItemDto> CreateItemAsync(ItemDto ItemDto, int userStorageLocationId, int stock)
         {
+            var categoryExists = await _context.Categories.AnyAsync(c => c.Id == ItemDto.CategoryId);
+            if (!categoryExists)
+                throw new InvalidOperationException($"CategoryId {ItemDto.CategoryId} does not exist."); 
+            
             var item = new Item 
             {
                 Name = ItemDto.Name,

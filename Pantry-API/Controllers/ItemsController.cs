@@ -31,5 +31,12 @@ namespace Pantry_API.Controllers
             var result = await _itemsService.CreateItemAsync(ItemDto, userStorageLocationId, stock);
             return StatusCode(201, result);
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteItem(int id)
+        {
+            var result = await _itemsService.DeleteItemAsync(id);
+            return StatusCode(204, result); 
+        }
     }
 }

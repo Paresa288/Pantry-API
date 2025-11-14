@@ -13,7 +13,7 @@ using Persistence.Repository.UsersRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var conString = builder.Configuration.GetConnectionString("PantryDbDesktop") ?? 
+var conString = builder.Configuration.GetConnectionString("PantryDbLaptop") ?? 
     throw new InvalidOperationException("Connection string 'PantryDb' not found.");
 
 // Add services to the container.
@@ -21,6 +21,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors();
 builder.Services.AddDbContext<PantryDbContext>(options=> 
     options.UseSqlServer(conString, sql => sql.MigrationsAssembly(typeof(PantryDbContext).Assembly.FullName)));
 
@@ -41,10 +42,11 @@ builder.Services.AddIdentityApiEndpoints<IdentityUser>()
 
 var app = builder.Build();
 
-app.Use((ctx, next) =>
+app.UseCors(options =>
 {
-    ctx.Response.Headers.Add("Access-Control-Allow-Origin", "*");
-    return next();
+    options.AllowAnyMethod();
+    options.AllowAnyHeader();
+    options.SetIsOriginAllowed(origin => true);
 });
 
 using (var scope = app.Services.CreateScope())

@@ -19,28 +19,58 @@ namespace Pantry_API.Controllers
         public async Task<IActionResult> GetAllCategoriesAsync()
         {
             var results = await _iCategoriesService.GetAllCategoriesAsync();
-            return StatusCode(results.StatusCode, results);
+            if (results == null || !results.Any())
+            {
+                return StatusCode(204, results); // No Content
+            }
+            else
+            {
+                return StatusCode(200, results); // OK
+            }
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCategoryByIdAsync(int id)
         {
             var result = await _iCategoriesService.GetCategoryByIdAsync(id);
-            return StatusCode(result.StatusCode, result);
+            if (result == null)
+            {
+                return StatusCode(404, $"Category with Id {id} not found."); // Not Found
+            }
+            else
+            {
+                return StatusCode(200, result); // OK
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateCategoryAsync([FromBody] CategoryDto categoryDto)
         {
             var result = await _iCategoriesService.CreateCategoryAsync(categoryDto);
-            return StatusCode(result.StatusCode, result);
+            if (result == null)
+            {
+                return StatusCode(400, "Failed to create category."); // Bad Request
+            }
+            else
+            {
+                return StatusCode(201, result); // Created
+            }
         }
-        
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategoryAsync(int id)
         {
             var result = await _iCategoriesService.DeleteCategoryAsync(id);
-            return StatusCode(result.StatusCode, result);
+            if (result == 0)
+            {
+                return StatusCode(404, $"Category with Id {id} not found."); // Not Found
+            }
+            else
+            {
+                return StatusCode(204); // No Content
+            }
         }
     }
 }
+
+
