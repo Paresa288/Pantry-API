@@ -29,7 +29,7 @@ namespace Persistence
         }
 
         /// <summary>
-        /// Gets or sets the items in the pantry.
+        /// Gets or sets the items in the application.
         /// </summary>
         public DbSet<Item> Items { get; set; } = null!;
 
@@ -44,7 +44,7 @@ namespace Persistence
         public DbSet<StorageLocation> StorageLocations { get; set; } = null!;
 
         /// <summary>
-        /// Gets or sets the users of the pantry application.
+        /// Gets or sets the users of the application.
         /// </summary>
         public DbSet<User> Users { get; set; } = null!;
 
@@ -52,16 +52,10 @@ namespace Persistence
         /// Gets or sets the roles assigned to users.
         /// </summary>
         public DbSet<Role> Roles { get; set; } = null!;
-
         /// <summary>
-        /// Gets or sets the relationship between users and storage locations.
+        /// Gets or sets the families assigned to users.
         /// </summary>
-        public DbSet<Users_StorageLocations> Users_StorageLocations { get; set; } = null!;
-
-        /// <summary>
-        /// Gets or sets the relationship between items, users, and storage locations.
-        /// </summary>
-        public DbSet<Items_Users_StorageLocations> Items_Users_StorageLocations { get; set; } = null!;
+        public DbSet<Family> Families { get; set; } = null!;
 
     }
 }

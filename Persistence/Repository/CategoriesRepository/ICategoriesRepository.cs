@@ -1,4 +1,4 @@
-﻿using Common.Models.Categories;
+﻿using Common.Models;
 
 namespace Persistence.Repository.CategoriesRepository
 {

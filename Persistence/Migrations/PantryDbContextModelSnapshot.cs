@@ -63,6 +63,35 @@ namespace Persistence.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Persistence.Entities.Family", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Families");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Reyes Santos"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Daza Morilla"
+                        });
+                });
+
             modelBuilder.Entity("Persistence.Entities.Item", b =>
                 {
                     b.Property<int>("Id")
@@ -80,6 +109,9 @@ namespace Persistence.Migrations
                     b.Property<DateTime?>("ExpDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -94,6 +126,8 @@ namespace Persistence.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("LocationId");
+
                     b.ToTable("Items");
 
                     b.HasData(
@@ -103,6 +137,7 @@ namespace Persistence.Migrations
                             CategoryId = 2,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ExpDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LocationId = 0,
                             Name = "Tomate Frito",
                             Unit = "pcs"
                         },
@@ -112,6 +147,7 @@ namespace Persistence.Migrations
                             CategoryId = 1,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ExpDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LocationId = 0,
                             Name = "Leche Sin Lactosa",
                             Unit = "liters"
                         },
@@ -121,27 +157,10 @@ namespace Persistence.Migrations
                             CategoryId = 3,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ExpDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LocationId = 0,
                             Name = "Manzanas",
                             Unit = "kg"
                         });
-                });
-
-            modelBuilder.Entity("Persistence.Entities.Items_Users_StorageLocations", b =>
-                {
-                    b.Property<int>("ItemId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserStorageLocationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Stock")
-                        .HasColumnType("int");
-
-                    b.HasKey("ItemId", "UserStorageLocationId");
-
-                    b.HasIndex("UserStorageLocationId");
-
-                    b.ToTable("Items_Users_StorageLocations");
                 });
 
             modelBuilder.Entity("Persistence.Entities.Role", b =>
@@ -190,12 +209,17 @@ namespace Persistence.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("FamilyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FamilyId");
 
                     b.ToTable("StorageLocations");
                 });
@@ -216,6 +240,9 @@ namespace Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int>("FamilyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -232,6 +259,8 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FamilyId");
+
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
@@ -241,34 +270,22 @@ namespace Persistence.Migrations
                         {
                             Id = 1,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "admin@example.com",
-                            Name = "admin",
+                            Email = "pablo@pablo.com",
+                            FamilyId = 1,
+                            Name = "Pablo",
                             Password = "123456",
                             RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "javi@javi.com",
+                            FamilyId = 2,
+                            Name = "Javi",
+                            Password = "123456",
+                            RoleId = 2
                         });
-                });
-
-            modelBuilder.Entity("Persistence.Entities.Users_StorageLocations", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("StorageLocationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StorageLocationId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Users_StorageLocations");
                 });
 
             modelBuilder.Entity("Persistence.Entities.Item", b =>
@@ -279,56 +296,45 @@ namespace Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Persistence.Entities.StorageLocation", "StorageLocation")
+                        .WithMany()
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("StorageLocation");
                 });
 
-            modelBuilder.Entity("Persistence.Entities.Items_Users_StorageLocations", b =>
+            modelBuilder.Entity("Persistence.Entities.StorageLocation", b =>
                 {
-                    b.HasOne("Persistence.Entities.Item", "Item")
+                    b.HasOne("Persistence.Entities.Family", "Family")
                         .WithMany()
-                        .HasForeignKey("ItemId")
+                        .HasForeignKey("FamilyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Persistence.Entities.Users_StorageLocations", "Users_StorageLocation")
-                        .WithMany()
-                        .HasForeignKey("UserStorageLocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Item");
-
-                    b.Navigation("Users_StorageLocation");
+                    b.Navigation("Family");
                 });
 
             modelBuilder.Entity("Persistence.Entities.User", b =>
                 {
+                    b.HasOne("Persistence.Entities.Family", "Family")
+                        .WithMany()
+                        .HasForeignKey("FamilyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Persistence.Entities.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Family");
+
                     b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("Persistence.Entities.Users_StorageLocations", b =>
-                {
-                    b.HasOne("Persistence.Entities.StorageLocation", "StorageLocation")
-                        .WithMany()
-                        .HasForeignKey("StorageLocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Persistence.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("StorageLocation");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Persistence.Entities.Category", b =>

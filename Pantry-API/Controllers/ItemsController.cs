@@ -1,5 +1,5 @@
 ﻿using Business.ItemsService;
-using Common.Models.Items;
+using Common.Models;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -26,9 +26,9 @@ namespace Pantry_API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateItem([FromBody] ItemDto ItemDto, int userStorageLocationId, int stock)
+        public async Task<IActionResult> CreateItem([FromBody] CreateItemDto createItemDto)
         {
-            var result = await _itemsService.CreateItemAsync(ItemDto, userStorageLocationId, stock);
+            var result = await _itemsService.CreateItemAsync(createItemDto);
             return StatusCode(201, result);
         }
         

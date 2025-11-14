@@ -1,6 +1,6 @@
 ﻿using Business.CategoriesService;
 using Microsoft.AspNetCore.Mvc;
-using Common.Models.Categories;
+using Common.Models;
 
 namespace Pantry_API.Controllers
 {
@@ -37,6 +37,10 @@ namespace Pantry_API.Controllers
         public async Task<IActionResult> CreateCategoryAsync([FromBody] CategoryDto categoryDto)
         {
             var result = await _iCategoriesService.CreateCategoryAsync(categoryDto);
+            if (result == 0)
+            {
+                return StatusCode(400, "Failed to create category");
+            }
             return StatusCode(201, result);
         }
 

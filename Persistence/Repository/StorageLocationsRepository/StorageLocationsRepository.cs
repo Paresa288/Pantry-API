@@ -1,5 +1,4 @@
-﻿using Common.Models.StorageLocations;
-using Common.Models.UsersStorageLocations;
+﻿using Common.Models;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Entities;
 
@@ -18,16 +17,10 @@ namespace Persistence.Repository.StorageLocationsRepository
             var storageLocation = new StorageLocation
             {
                 Name = createStorageLocationDto.Name,
-                Description = createStorageLocationDto.Description
+                Description = createStorageLocationDto.Description,
+                FamilyId = createStorageLocationDto.FamilyId
             };
             await _context.StorageLocations.AddAsync(storageLocation);
-
-            await _context.Users_StorageLocations.AddAsync(new Users_StorageLocations
-            {
-                StorageLocation = storageLocation,
-                UserId = createStorageLocationDto.UserId
-            });
-
             await _context.SaveChangesAsync();
             return storageLocation.Id;
         }
@@ -46,7 +39,8 @@ namespace Persistence.Repository.StorageLocationsRepository
                 {
                     Id = sl.Id,
                     Name = sl.Name,
-                    Description = sl.Description
+                    Description = sl.Description,
+                    FamilyId = sl.FamilyId
                 })
                 .AsNoTracking()
                 .ToListAsync();
@@ -60,7 +54,8 @@ namespace Persistence.Repository.StorageLocationsRepository
                 {
                     Id = sl.Id,
                     Name = sl.Name,
-                    Description = sl.Description
+                    Description = sl.Description,
+                    FamilyId = sl.FamilyId
                 })
                 .FirstOrDefaultAsync();
         }

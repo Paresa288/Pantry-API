@@ -5,24 +5,15 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-inventory',
-  imports: [ItemsListComponent, AddItemFormComponent],
+  imports: [ItemsListComponent],
   templateUrl: './inventory.component.html',
   styles: ''
 })
+
 export class InventoryComponent {
   private modalService = inject(NgbModal);
   
   open() {
-    const modalRef = this.modalService.open(AddItemFormComponent);
+    this.modalService.open(AddItemFormComponent);
   }
-  class = "d-none"
-  
-  ChangeVisibility() {
-    if (this.class === "d-none") {
-      this.class = ""
-    } else {
-      this.class = "d-none"
-    }
-  }
-
 }

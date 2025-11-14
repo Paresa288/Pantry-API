@@ -1,4 +1,4 @@
-﻿using Common.Models.Items;
+﻿using Common.Models;
 
 namespace Business.ItemsService
 {
@@ -6,7 +6,7 @@ namespace Business.ItemsService
     {
         public Task<List<ItemDto>> GetAllItemsAsync();
         public Task<ItemDto?> GetItemByIdAsync(int id);
-        public Task<ItemDto> CreateItemAsync(ItemDto ItemDto, int userStorageLocationId, int stock);
+        public Task<ItemDto> CreateItemAsync(CreateItemDto createItemDto);
         public Task<int> DeleteItemAsync(int id);
     }
 }

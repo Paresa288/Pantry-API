@@ -1,4 +1,4 @@
-﻿using Common.Models.Categories;
+﻿using Common.Models;
 using Persistence.Repository.CategoriesRepository;
 
 namespace Business.CategoriesService

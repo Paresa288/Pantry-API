@@ -46,5 +46,16 @@ namespace Persistence.Entities
         /// Gets or sets the role associated with the user.
         /// </summary>
         public Role Role { get; set; } = null!;
+
+        /// <summary>
+        /// Gets or sets the family identifier for the user.
+        /// </summary>
+        [ForeignKey("Family")]
+        public int FamilyId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the family associated with the user.
+        /// </summary>
+        public Family Family { get; set; } = null!;
     }
 }

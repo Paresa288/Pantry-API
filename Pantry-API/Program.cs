@@ -43,9 +43,10 @@ builder.Services.AddIdentityApiEndpoints<IdentityUser>()
 var app = builder.Build();
 
 app.UseCors(options =>
-{
-    ctx.Response.Headers.Append("Access-Control-Allow-Origin", "*");
-    return next();
+{   
+    options.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
 });
 
 using (var scope = app.Services.CreateScope())

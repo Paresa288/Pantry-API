@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Common.Models.Users;
+using Common.Models;
 
 namespace Persistence.Repository.UsersRepository
 {
@@ -16,9 +16,11 @@ namespace Persistence.Repository.UsersRepository
         {
             return await _context.Users.Select(u => new UserDto
             {
+                Id = u.Id,
                 Name = u.Name,
                 Email = u.Email,
                 RoleId = u.RoleId,
+                FamilyId = u.FamilyId
             }).ToListAsync();
 
         }
@@ -29,9 +31,11 @@ namespace Persistence.Repository.UsersRepository
             .Where(u => u.Id == id)
             .Select(u => new UserDto
             {
+                Id = u.Id,
                 Name = u.Name,
                 Email = u.Email,
                 RoleId = u.RoleId,
+                FamilyId = u.FamilyId
             }).FirstOrDefaultAsync();
         }
         
@@ -42,6 +46,7 @@ namespace Persistence.Repository.UsersRepository
                 Name = createUserDto.Name,
                 Email = createUserDto.Email,
                 Password = createUserDto.Password,
+                FamilyId = createUserDto.FamilyId
             });
             await _context.SaveChangesAsync();
             return user.Entity.Id;

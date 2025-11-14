@@ -19,11 +19,43 @@ namespace Persistence.Entities
         [MaxLength(100), Required]
         public string Name { get; set; } = null!;
 
+        /// <summary>
+        /// Gets or sets the measuring unit of the item.
+        /// </summary>
         [MaxLength(20), Required]
         public string Unit { get; set; } = null!;
+
+        /// <summary>
+        /// Gets or sets the expiration date of the item.
+        /// </summary>
         public DateTime? ExpDate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the creation date of the item.
+        /// </summary>
         public DateTime CreatedAt { get; set; }
+
+        /// <summary>
+        /// Gets or sets the category identifier of the item.
+        /// </summary>
+        [ForeignKey("Category")]
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+
+        /// <summary>
+        /// 
+        /// gets or sets the category associated with the item.
+        /// </summary>
+        public Category Category { get; set; } = null!;
+
+        /// <summary>
+        /// Gets or sets the location identifier for the item.
+        /// </summary>
+        [ForeignKey("StorageLocation")]
+        public int LocationId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the location associated with the item.
+        /// </summary>
+        public StorageLocation StorageLocation { get; set; } = null!;
     }
 }

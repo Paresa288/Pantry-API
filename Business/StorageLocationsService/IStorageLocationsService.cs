@@ -1,4 +1,4 @@
-﻿using Common.Models.StorageLocations;
+﻿using Common.Models;
 
 namespace Business.StorageLocationsService
 {
@@ -6,7 +6,7 @@ namespace Business.StorageLocationsService
     {
         public Task<int> CreateStorageLocationAsync(CreateStorageLocationDto createStorageLocationDto);
         public Task<List<StorageLocationDto>> GetAllStorageLocationsAsync();
-        public Task<StorageLocationDto> GetStorageLocationsByIdAsync(int id);
+        public Task<StorageLocationDto?> GetStorageLocationsByIdAsync(int id);
         public Task<int> DeleteStorageLocationAsync(int id);
     }
 }

@@ -3,16 +3,11 @@
   <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 </div>
 <div class="modal-body">
-  <form [formGroup]="addItemForm" (ngSubmit)="onSubmit()" class="shadow-lg rounded bg-white">
+  <form [formGroup]="addItemForm" (ngSubmit)="onSubmit()">
     <div class="form-floating">
       <input type="text" class="form-control mb-3 bg-body-secondary" id="floatingName" placeholder="Name"
         formControlName="name">
       <label for="floatingName">Name</label>
-    </div>
-    <div class="form-floating">
-      <input type="number" class="form-control mb-3 bg-body-secondary" id="floatingCategory" placeholder="Category"
-        formControlName="category">
-      <label for="floatingCategory">Category</label>
     </div>
     <div class="form-floating">
       <input type="text" class="form-control mb-3 bg-body-secondary" id="floatingUnit" placeholder="Unit"
@@ -25,18 +20,27 @@
       <label for="floatingDate">Exp. Date</label>
     </div>
     <div class="form-floating">
+      <select type="number" class="form-select mb-3 bg-body-secondary" id="floatingCategory" placeholder="Category"
+        formControlName="category">
+      @for (category of categoriesService.categories; track $index) {
+        <option value="{{ category.id }}">{{ category.name }}</option>
+      }
+      </select>
+      <label for="floatingCategory">Category</label>
+    </div>
+    <div class="form-floating">
       <select 
         type="number" 
         class="form-select mb-3 bg-body-secondary" 
-        id="floatingUSLId"
-        placeholder="user_StorageLocationId" 
-        formControlName="USLId"
+        id="floatingLocation"
+        placeholder="Location" 
+        formControlName="location"
       >
         @for (location of locationsService.locations; track $index) {
-          <option value="{{ location.name }}">{{location.name}}</option>    
+          <option value="{{ location.id }}">{{location.name}}</option>    
         }
+        <label for="floatingLocation">Storage Location</label>
       </select>
-      <label for="floatingUSLId">Storage Location</label>
     </div>
     <div class="form-floating">
       <input type="number" class="form-control mb-3 bg-body-secondary" id="floatingStock" placeholder="Stock"

@@ -3,7 +3,7 @@ import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ItemsServiceService } from '../../shared/services/items.service';
 import { LocationsService } from '../../shared/services/locations.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Location } from '../../types/location';
+import { CategoriesService } from '../../shared/services/categories.service';
 
 @Component({
   selector: 'app-add-item-form',
@@ -14,16 +14,27 @@ import { Location } from '../../types/location';
 export class AddItemFormComponent implements OnInit {
   activeModal = inject(NgbActiveModal);
 
-  constructor(public itemsService: ItemsServiceService, public locationsService: LocationsService) {}
+  constructor(public itemsService: ItemsServiceService, public locationsService: LocationsService, public categoriesService: CategoriesService) {}
   ngOnInit() : void{
     this.getLocations();
+    this.getCategories();
+  }
+  
+  getCategories() {
+    this.categoriesService.getCategories().subscribe({
+      next: (res) => {
+        this.categoriesService.categories = res;
+      },
+      error: (e) => {
+        console.log(e);
+      }
+    });
   }
 
   getLocations() {
     this.locationsService.getLocations().subscribe({
       next: (res) => {
         this.locationsService.locations = res;
-        console.log(res);
       },
       error: (e) => {
         console.log(e);
@@ -33,21 +44,20 @@ export class AddItemFormComponent implements OnInit {
 
   addItemForm : FormGroup = new FormGroup({
     name: new FormControl(''),
-    category: new FormControl(0),
     unit: new FormControl(''),
+    stock: new FormControl(0),
     expirationDate: new FormControl(Date()),
-    USLId: new FormControl(),
-    stock: new FormControl(0)
+    category: new FormControl(),
+    location: new FormControl(),
   });
   
 
 
   onSubmit() {
-    
     const item = {
       id: this.addItemForm.value.id, 
       name: this.addItemForm.value.name,
-      categoryId: this.addItemForm.value.category,
+      categoryId: this.addItemForm.value.category.id, 
       unit: this.addItemForm.value.unit,
       expirationDate: this.addItemForm.value.expirationDate
     };
@@ -58,6 +68,7 @@ export class AddItemFormComponent implements OnInit {
     this.itemsService.createItem(item, USLId, stock).subscribe({
       next: (res) => {
         console.log("Item created successfully:", res);
+        this.itemsService.items.push(res);
       },
       error: (e) => {
         console.log("Error creating item:", e);

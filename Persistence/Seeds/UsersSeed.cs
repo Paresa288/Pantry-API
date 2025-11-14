@@ -12,11 +12,22 @@ namespace Persistence.Seeds
                 new User
                 {
                     Id = 1,
-                    Name = "admin",
-                    Email = "admin@example.com",
+                    Name = "Pablo",
+                    Email = "pablo@pablo.com",
                     Password = "123456",
                     RoleId = 1,
-                });
+                    FamilyId = 1,
+                },
+                new User
+                {
+                    Id = 2,
+                    Name = "Javi",
+                    Email = "javi@javi.com",
+                    Password = "123456",
+                    RoleId = 2,
+                    FamilyId = 2,
+                }
+            );
         }
     }
 }

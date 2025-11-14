@@ -1,4 +1,4 @@
-﻿using Common.Models.Categories;
+﻿using Common.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Repository.CategoriesRepository
@@ -17,6 +17,7 @@ namespace Persistence.Repository.CategoriesRepository
             return await _context.Categories
                 .Select(c => new CategoryDto
                 {
+                    Id = c.Id,
                     Name = c.Name,
                     Description = c.Description
                 })
@@ -29,6 +30,7 @@ namespace Persistence.Repository.CategoriesRepository
                 .Where(c => c.Id == id)
                 .Select(c => new CategoryDto
                 {
+                    Id = c.Id,
                     Name = c.Name,
                     Description = c.Description
                 }).FirstOrDefaultAsync();

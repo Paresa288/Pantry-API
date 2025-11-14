@@ -20,7 +20,7 @@ export class ItemComponent {
     this.itemsService.deleteItem(this.item.id).subscribe({
       next: (res) => {
         console.log("Item deleted successfully:", res);
-        // Optionally, you might want to refresh the items list or notify the parent component
+        this.itemsService.getItems();
       },
       error: (e) => {
         console.log("Error deleting item:", e);

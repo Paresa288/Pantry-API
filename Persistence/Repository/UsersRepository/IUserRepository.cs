@@ -1,4 +1,4 @@
-﻿using Common.Models.Users;
+﻿using Common.Models;
 
 namespace Persistence.Repository.UsersRepository
 {

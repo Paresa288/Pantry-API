@@ -1,4 +1,4 @@
-﻿using Common.Models.Users;
+﻿using Common.Models;
 using Persistence.Repository.UsersRepository;
 
 namespace Business.UsersService
@@ -20,7 +20,6 @@ namespace Business.UsersService
 
         public async Task<UserDto?> GetUserByIdAsync(int id)
         {
-            return await _userRepository.GetByIdAsync(id);
             return await _userRepository.GetByIdAsync(id);
         }
         

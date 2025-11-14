@@ -39,4 +39,16 @@ export class ItemsListComponent implements OnInit {
       }
     });
   };
+  
+  deleteItem(id : number) {
+    this.itemsService.deleteItem(id).subscribe({
+      next: (res) => {
+        console.log("Item deleted successfully:", res);
+        this.getItems();
+      },
+      error: (e) => {
+        console.log("Error deleting item:", e);
+      }
+    });
+  };
 }

@@ -1,4 +1,4 @@
-﻿using Common.Models.StorageLocations;
+﻿using Common.Models;
 using Persistence.Repository.StorageLocationsRepository;
 
 namespace Business.StorageLocationsService
@@ -26,7 +26,7 @@ namespace Business.StorageLocationsService
             return await _storageLocationsRepository.GetAllAsync();
         }
        
-        public async Task<StorageLocationDto> GetStorageLocationsByIdAsync(int id)
+        public async Task<StorageLocationDto?> GetStorageLocationsByIdAsync(int id)
         {
             return await _storageLocationsRepository.GetByIdAsync(id);
         }

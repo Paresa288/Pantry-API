@@ -1,4 +1,4 @@
-﻿using Common.Models.Items;
+﻿using Common.Models;
 using Persistence.Repository.ItemsRepository;
 
 namespace Business.ItemsService
@@ -12,9 +12,9 @@ namespace Business.ItemsService
             _itemsRepository = itemsRepository;
         }
         
-        public async Task<ItemDto> CreateItemAsync(ItemDto ItemDto, int userStorageLocationId, int stock)
+        public async Task<ItemDto> CreateItemAsync(CreateItemDto createItemDto)
         {
-            return await _itemsRepository.CreateItemAsync(ItemDto, userStorageLocationId, stock);
+            return await _itemsRepository.CreateItemAsync(createItemDto);
         }
 
         public async Task<List<ItemDto>> GetAllItemsAsync()

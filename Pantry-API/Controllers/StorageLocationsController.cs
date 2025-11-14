@@ -1,6 +1,5 @@
 ﻿using Business.StorageLocationsService;
-using Common.Models.StorageLocations;
-using Microsoft.AspNetCore.Http;
+using Common.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Pantry_API.Controllers
@@ -19,6 +18,8 @@ namespace Pantry_API.Controllers
         public async Task<IActionResult> GetAllStorageLocationsAsync()
         {
             var results = await _storageLocationsService.GetAllStorageLocationsAsync();
+            if (results.ToArray().Length == 0)
+                return StatusCode(404, "There are no locations yet");
             return StatusCode(200, results);
         }
 
@@ -26,6 +27,8 @@ namespace Pantry_API.Controllers
         public async Task<IActionResult> GetStorageLocationByIdAsync(int id)
         {
             var result = await _storageLocationsService.GetStorageLocationsByIdAsync(id);
+            if (result == null)
+                return StatusCode(404, "Location not found");
             return StatusCode(200, result);
         }
 
