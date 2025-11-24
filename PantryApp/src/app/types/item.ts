@@ -1,7 +1,8 @@
 export interface Item {
-  id: number,
+  id: number | undefined,
   name: String,
   unit: String,
+  expDate?: Date,
   categoryId: number,
-  expDate?: Date
+  locationId: number
 }

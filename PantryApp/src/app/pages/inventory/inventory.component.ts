@@ -16,4 +16,5 @@ export class InventoryComponent {
   open() {
     this.modalService.open(AddItemFormComponent);
   }
+  
 }

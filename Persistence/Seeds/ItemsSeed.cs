@@ -13,25 +13,28 @@ namespace Persistence.Seeds
                 {
                     Id = 1,
                     CategoryId = 2,
-                    Name = "Tomate Frito",
+                    Name = "Tomato sauce",
                     Unit = "pcs",
                     ExpDate = new DateTime(11 / 22 / 2025),
+                    LocationId = 1,
                 },
                 new Item
                 {
                     Id = 2,
                     CategoryId = 1,
-                    Name = "Leche Sin Lactosa",
+                    Name = "Milk",
                     Unit = "liters",
                     ExpDate = new DateTime(11 / 22 / 2025),
+                    LocationId = 1,
                 },
                 new Item
                 {
                     Id = 3,
                     CategoryId = 3,
-                    Name = "Manzanas",
+                    Name = "Apples",
                     Unit = "kg",
                     ExpDate = new DateTime(11 / 22 / 2025),
+                    LocationId = 2,
                 }
                 );
 

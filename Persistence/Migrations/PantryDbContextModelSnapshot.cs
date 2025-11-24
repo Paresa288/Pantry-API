@@ -137,8 +137,8 @@ namespace Persistence.Migrations
                             CategoryId = 2,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ExpDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LocationId = 0,
-                            Name = "Tomate Frito",
+                            LocationId = 1,
+                            Name = "Tomato sauce",
                             Unit = "pcs"
                         },
                         new
@@ -147,8 +147,8 @@ namespace Persistence.Migrations
                             CategoryId = 1,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ExpDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LocationId = 0,
-                            Name = "Leche Sin Lactosa",
+                            LocationId = 1,
+                            Name = "Milk",
                             Unit = "liters"
                         },
                         new
@@ -157,8 +157,8 @@ namespace Persistence.Migrations
                             CategoryId = 3,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ExpDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LocationId = 0,
-                            Name = "Manzanas",
+                            LocationId = 2,
+                            Name = "Apples",
                             Unit = "kg"
                         });
                 });
@@ -222,6 +222,29 @@ namespace Persistence.Migrations
                     b.HasIndex("FamilyId");
 
                     b.ToTable("StorageLocations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "It's dark and fresh",
+                            FamilyId = 1,
+                            Name = "Pantry"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "It's the one inside the house",
+                            FamilyId = 1,
+                            Name = "Inside Fridge"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "It's the one inside the house",
+                            FamilyId = 1,
+                            Name = "Inside Freezer"
+                        });
                 });
 
             modelBuilder.Entity("Persistence.Entities.User", b =>

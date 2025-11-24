@@ -1,8 +1,24 @@
-<main class="container mt-4">
-  <div class="bg-body-tertiary p-5 rounded">
-    <h1>Navbar example</h1>
-    <p class="lead">This example is a quick exercise to illustrate how fixed to top navbar works. As you scroll, it will
-      remain fixed to the top of your browser’s viewport.</p>
-    <a class="btn btn-lg btn-primary" href="/docs/5.3/components/navbar" role="button">View navbar docs &raquo;</a>
-  </div>
-</main>
+<div class="col-xxl-4 offset-xxl-4 col-lg-6 offset-lg-3 col-10 offset-1">
+  @for (location of this.locationsService.locations; track location) {
+    <div class="card mb-2 shadow-lg">
+      <div class="card-header d-flex">
+        <h5>
+          {{location.name}}
+        </h5>
+        <button role="button" class="btn ms-auto">
+          <i class="fa fa-times text-danger" ></i>
+        </button>
+      </div>
+      <div class="card-body">
+        <div class="container">
+          <button class="btn btn-primary rounded shadow-lg fixed-bottom m-2" (click)="open()"><i class="fa fa-plus-square"></i>New Item</button>
+            <div class="row vh-100 align-items-center">
+              <div class="col-xxl-4 offset-xxl-4 col-lg-6 offset-lg-3 col-10 offset-1">
+                <app-items-list [items]="items()" (delete)="onDeleteItem($event)"></app-items-list>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

@@ -13,7 +13,7 @@ using Persistence.Repository.UsersRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var conString = builder.Configuration.GetConnectionString("PantryDbLaptop") ?? 
+var conString = builder.Configuration.GetConnectionString("PantryDbDesktop") ?? 
     throw new InvalidOperationException("Connection string 'PantryDb' not found.");
 
 // Add services to the container.

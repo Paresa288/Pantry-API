@@ -1,3 +1,3 @@
-  @for (item of itemsService.items; track item) {
-      <app-item [item]="item"></app-item>
+  @for (item of items(); track item.id) {
+      <app-item [item]="item" (delete)="onDelete($event)"></app-item>
   }

@@ -15,6 +15,7 @@ export class AddItemFormComponent implements OnInit {
   activeModal = inject(NgbActiveModal);
 
   constructor(public itemsService: ItemsServiceService, public locationsService: LocationsService, public categoriesService: CategoriesService) {}
+  
   ngOnInit() : void{
     this.getLocations();
     this.getCategories();
@@ -57,18 +58,15 @@ export class AddItemFormComponent implements OnInit {
     const item = {
       id: this.addItemForm.value.id, 
       name: this.addItemForm.value.name,
-      categoryId: this.addItemForm.value.category.id, 
       unit: this.addItemForm.value.unit,
-      expirationDate: this.addItemForm.value.expirationDate
+      expirationDate: this.addItemForm.value.expirationDate,
+      categoryId: this.addItemForm.value.category, 
+      locationId: this.addItemForm.value.location
     };
     
-    const USLId = this.addItemForm.value.USLId;
-    const stock = this.addItemForm.value.stock
-    
-    this.itemsService.createItem(item, USLId, stock).subscribe({
+    this.itemsService.createItem(item).subscribe({
       next: (res) => {
         console.log("Item created successfully:", res);
-        this.itemsService.items.push(res);
       },
       error: (e) => {
         console.log("Error creating item:", e);

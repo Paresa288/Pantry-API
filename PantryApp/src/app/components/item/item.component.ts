@@ -1,6 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, input, Input, output, Output } from '@angular/core';
 import { Item } from '../../types/item';
-import { ItemsServiceService } from '../../shared/services/items.service';
 
 @Component({
   selector: 'app-item',
@@ -10,21 +9,7 @@ import { ItemsServiceService } from '../../shared/services/items.service';
   styles: '',
 })
 export class ItemComponent {
-  @Input() item!:Item;
-  
-  constructor(public itemsService : ItemsServiceService) {
-    this.itemsService = itemsService;
-  }
-  
-  deleteItem() {
-    this.itemsService.deleteItem(this.item.id).subscribe({
-      next: (res) => {
-        console.log("Item deleted successfully:", res);
-        this.itemsService.getItems();
-      },
-      error: (e) => {
-        console.log("Error deleting item:", e);
-      }
-    });
-  }
+  item = input.required<Item>();
+  delete = output<number>();
+
 }
