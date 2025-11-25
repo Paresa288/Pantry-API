@@ -1,5 +1,6 @@
 export interface Location {
-  id: number,
-  name: String,
-  description?: String
+  id: number | undefined,
+  name: string,
+  description?: string
+  familyId: number
 }

@@ -1,22 +1,27 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { LocationsService } from '../../shared/services/locations.service';
 import { ItemsServiceService } from '../../shared/services/items.service';
-import { ItemsListComponent } from '../../components/items-list/items-list.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddItemFormComponent } from '../../components/add-item-form/add-item-form.component';
 import { Item } from '../../types/item';
+import { Location } from '../../types/location';
+import { CategoriesService } from '../../shared/services/categories.service';
 
 @Component({
   selector: 'app-home',
-  imports: [ItemsListComponent],
+  imports: [],
   templateUrl: './home.component.html',
   styles: ''
 })
+
 export class HomeComponent implements OnInit {
   items = signal<Item[]>([]);
+  locations = signal<Location[]>([]);
+
   private modalService = inject(NgbModal);
+  hidden = signal<boolean>(false);
   
-  constructor (public locationsService:LocationsService, public itemsService:ItemsServiceService){};
+  constructor (public locationsService:LocationsService, public itemsService:ItemsServiceService, public categoriesService:CategoriesService){};
   
   ngOnInit(): void {
     this.getLocations();
@@ -33,11 +38,22 @@ export class HomeComponent implements OnInit {
       }
     });
   };
-
+  
+  onCreateItem(item:Item) {
+    this.itemsService.createItem(item).subscribe({
+      next: (res) => {
+        this.items.set([...this.items(), res]);
+      },
+      error: (e) => {
+        console.log("Error creating item:", e);
+      }
+    });
+  };
+  
   getLocations() {
     this.locationsService.getLocations().subscribe({
       next: (res) => {
-        this.locationsService.locations = res;
+        this.locations.set(res);
       },
       error: (e) => {
         console.error(e);
@@ -58,6 +74,24 @@ export class HomeComponent implements OnInit {
   };
   
   open() {
-    this.modalService.open(AddItemFormComponent);
+    const modalRef = this.modalService.open(AddItemFormComponent, {
+      centered: true
+    });
+    modalRef.result.then(
+      (item) => {
+        if (item?.categoryId == null){
+          this.categoriesService.createCategory(item).subscribe({})
+        };
+        this.onCreateItem(item);
+        this.items.set([...this.items(), item]);
+      },
+      (reason) => {
+        console.log("Modal dismissed:", reason);
+      }
+    );
   };
+
+  onClick() {
+    this.hidden.set(!this.hidden());
+  }
 }
