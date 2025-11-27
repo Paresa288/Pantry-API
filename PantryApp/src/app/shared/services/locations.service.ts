@@ -17,4 +17,8 @@ export class LocationsService {
   getLocations() {
     return this.http.get<Location[]>(this.API_URL);
   }
+
+  createLocation(location:Location) {
+    return this.http.post<Location>(this.API_URL, location);
+  }
 }

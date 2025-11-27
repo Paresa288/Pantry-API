@@ -23,93 +23,46 @@
         formControlName="expirationDate">
       <label for="floatingDate">Exp. Date</label>
     </div>
+
     <!-- ==================== CATEGORY ==================== -->
     <div class="mb-4 position-relative" formGroupName="category">
       <div class="input-group">
         <span class="input-group-text bg-primary text-white">
           <i class="fa fa-tag"></i>
         </span>
-      
         <div class="form-floating flex-fill">
-          <input type="text" class="form-control bg-body-secondary" id="floatingCategory" placeholder="Lácteos"
-            formControlName="catName" autocomplete="off">
-          <label for="floatingCategory">Buscar o crear categoría</label>
-        </div>
-      </div>
-      
-      <!-- Dropdown de sugerencias + opción crear nueva -->
-      @if (filteredCategories().length > 0 || (addItemForm.get('category.catName')?.value?.trim() && categories().some( (c) => {
-        c.name.toLowerCase() === addItemForm.get('category.catName')?.value.trim().toLowerCase()
-      }))
-      ) {
-      <div class="dropdown-menu show w-100 mt-1 shadow-lg" style="max-height: 200px; overflow-y: auto;">
-        <!-- Sugerencias existentes -->
-        @for (cat of filteredCategories(); track cat.id) {
-        <button type="button" class="dropdown-item" (click)="selectCategory(cat)">
-          {{ cat.name }}
-          @if (cat.description) {
-          <span class="text-muted small"> - {{ cat.description }}</span>
-          }
-        </button>
-        }
-      
-        <!-- Opción crear nueva (solo si no existe) -->
-        @if (addItemForm.get('category.catName')?.value?.trim()) {
-        <div class="dropdown-divider"></div>
-        <button type="button" class="dropdown-item text-primary fw-bold" (click)="createNewCategory()">
-          <i class="fa fa-plus-circle me-2"></i>
-          Crear nueva: "{{ addItemForm.get('category.catName')?.value.trim() }}"
-        </button>
-        }
-      </div>
-      }
-    
-     <!--  @if (filteredCategories().length == 0) {
-        <div class="form-floating">
-          <select type="number" class="form-select bg-body-secondary" id="floatingCategory" placeholder="Category" formControlName="catName">
-            @for (cat of filteredCategories(); track cat.id) {
-              <option value="{{ cat.id }}" (click)="selectCategory(cat)">{{ cat.name }}</option>
-            }
-          </select>
-          <label for="floatingCategory">Category</label>
-          </div>
-        } @else {
           <div class="form-floating">
-            <input type="text" class="form-control bg-body-secondary" id="floatingCategory" placeholder="Category" formControlName="catName">
+            <select type="number" class="form-select bg-body-secondary" id="floatingCategory" placeholder="Category"
+              formControlName="catName" role="button">
+              @for (cat of categories(); track cat.id) {
+              <option value="{{ cat.id }}">{{ cat.name }}</option>
+              }
+            </select>
             <label for="floatingCategory">Category</label>
           </div>
-          <div class="form-floating">
-            <input type="text" class="form-control bg-body-secondary" id="floatingCategoryDesc" placeholder="Category Description" formControlName="catDescription">
-            <label for="floatingCategoryDesc">Description(optional)</label>
-          </div>
-        } -->
+        </div>
+      </div>
+      <button class="btn btn-primary w-100" (click)="openAddCategory()"><span><i
+            class="fa fa-plus-square text-white"></i>Add a new category</span></button>
     </div>
-    <div class="input-group mb-3" formGroupName="location">
-      <span class="input-group-text bg-primary"><i class="fa fa-plus-square text-white" role="button"></i></span>
-      @if (filteredLocations().length > 0) {
+    <!-- ==================== LOCATION ==================== -->
+    <div class="mb-4 position-relative" formGroupName="location">
+      <div class="input-group">
+        <span class="input-group-text bg-primary text-white"><i class="fa fa-folder text-white"></i></span>
         <div class="form-floating">
-          <select type="number" class="form-select bg-body-secondary" id="floatingLocation" placeholder="Location" 
-          formControlName="locName">
-            @for (location of locations(); track $index) {
-              <option value="{{ location.id }}">{{location.name}}</option>    
+          <select type="number" class="form-select bg-body-secondary" id="floatingLocation" placeholder="Location"
+            formControlName="locName" role="button">
+            @for (location of locations(); track location.id) {
+            <option value="{{ location.id }}">{{location.name}}</option>
             }
           </select>
           <label for="floatingLocation">Storage Location</label>
         </div>
-      } @else {
-        <div class="form-floating">
-          <input type="text" class="form-control bg-body-secondary" id="floatingLocation" placeholder="Location"
-            formControlName="locName">
-          <label for="floatingLocation">Storage Location</label>
-        </div>
-        <div class="form-floating">
-          <input type="text" class="form-control bg-body-secondary" id="floatingLocation" placeholder="Location"
-            formControlName="locDescription">
-          <label for="floatingLocation">Description(optional)</label>
-        </div>
-      }
+      </div>
+      <button class="btn btn-primary w-100" (click)="oppenAddLocation()"><span><i
+            class="fa fa-plus-square text-white"></i>Add a new location</span></button>
     </div>
-      
+
     <div class="form-floating">
       <input type="number" class="form-control mb-3 bg-body-secondary" id="floatingStock" placeholder="Stock"
         formControlName="stock">

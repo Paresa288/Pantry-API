@@ -77,13 +77,13 @@ export class HomeComponent implements OnInit {
     const modalRef = this.modalService.open(AddItemFormComponent, {
       centered: true
     });
+    
     modalRef.result.then(
       (item) => {
-        if (item?.categoryId == null){
-          this.categoriesService.createCategory(item).subscribe({})
-        };
+        if (item == null) return;
+        
         this.onCreateItem(item);
-        this.items.set([...this.items(), item]);
+        this.items.update(items => [...items, item]);
       },
       (reason) => {
         console.log("Modal dismissed:", reason);

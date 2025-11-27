@@ -1,13 +1,14 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ItemsServiceService } from '../../shared/services/items.service';
 import { LocationsService } from '../../shared/services/locations.service';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CategoriesService } from '../../shared/services/categories.service';
 import { Item } from '../../types/item';
 import { Category } from '../../types/category';
 import { Location } from '../../types/location';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { AddCategoryFormComponent } from '../add-category-form/add-category-form.component';
+import { AddLocationFormComponent } from '../add-location-form/add-location-form.component';
 
 @Component({
   selector: 'app-add-item-form',
@@ -17,14 +18,14 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
   styles: ''
 })
 export class AddItemFormComponent implements OnInit {
+  private ModalService = inject(NgbModal);
   activeModal = inject(NgbActiveModal);
 
   categories = signal<Category[]>([]);
   filteredCategories = signal<Category[]>([]);
   locations = signal<Location[]>([]);
   filteredLocations = signal<Location[]>([]);
-  
-  private itemsService = inject(ItemsServiceService);
+
   private locationsService = inject(LocationsService);
   private categoriesService = inject(CategoriesService);
   
@@ -38,8 +39,8 @@ export class AddItemFormComponent implements OnInit {
     category: new FormGroup({
       id: new FormControl<string | null>(null),
       catName: new FormControl('', { nonNullable: true }),
-      catDescription: new FormControl('', { nonNullable: true }),
-    }),
+      catDescription: new FormControl<string | null >(null),
+    }), 
     
     location: new FormGroup({
       id: new FormControl<string | null>(null),
@@ -54,7 +55,9 @@ export class AddItemFormComponent implements OnInit {
     
     this.addItemForm.get('category.catName')?.valueChanges
     .pipe(debounceTime(200), distinctUntilChanged())
-    .subscribe(query => this.filterCategories(query || ''));
+    .subscribe(query => {
+      this.filterCategories(query || '')
+    });
   }
   
   loadCategories() {
@@ -69,49 +72,20 @@ export class AddItemFormComponent implements OnInit {
       this.locations.set(locs);
     });
   }
-  
-  selectCategory(cat: Category) {
-    this.addItemForm.patchValue({
-      category: {
-        id: cat.id,
-        catName: cat.name,
-        catDescription: cat.description || ''
-      }
-    });
-    this.filteredCategories.set([]);
-  }
-
-  createNewCategory(): void {
-    const name = this.addItemForm.get('category.catName')?.value?.trim();
-    const description = this.addItemForm.get('category.catDescription')?.value?.trim() || '';
-
-    if (!name || this.categories().some(c => c.name.toLowerCase() === name.toLowerCase())) {
-      return;
-    }
-    const newCat: Partial<Category> = { name, description };
-    this.categoriesService.createCategory(newCat as Category)
-      .subscribe(createdCat => {
-        this.categories.update(cats => [...cats, createdCat]);
-        this.selectCategory(createdCat);
-      });
-  }
-    
-    
+ 
   private filterCategories(query: string) {
-    const lower = query.toLowerCase().trim();
-    if (!lower) {
+    const _query = query.toLowerCase().trim();
+    if (!_query) {
       this.filteredCategories.set([]);
       return;
     }
     this.filteredCategories.set(
-      this.categories().filter(c => c.name.toLowerCase().includes(lower))
+      this.categories().filter(c => c.name.toLowerCase().includes(_query))
     );
   }
 
-
   onSubmit() {
     if (this.addItemForm.invalid) return;
-    const formValue = this.addItemForm.getRawValue();
 
     const item: Partial<Item> = {
       name: this.addItemForm.value.name,
@@ -122,4 +96,27 @@ export class AddItemFormComponent implements OnInit {
     };
     this.activeModal.close(item);
   };
+
+  openAddCategory() {
+    const modalRef = this.ModalService.open(AddCategoryFormComponent, {
+      centered: true
+    });
+    modalRef.result.then(category => {
+      console.log(category);
+      this.categoriesService.createCategory(category).subscribe({
+        next: (res) => {
+          this.categories.update(categories => [...categories, res]);
+        },
+        error: (e) => {
+          console.log("Error creating category:", e);
+        } 
+      });
+    });
+  }
+
+  oppenAddLocation() {
+    this.ModalService.open(AddLocationFormComponent, {
+      centered: true
+    });
+  }
 }
